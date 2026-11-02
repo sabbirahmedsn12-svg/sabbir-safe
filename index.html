@@ -9,116 +9,205 @@
 *{box-sizing:border-box}
 body{
  margin:0;
- background:#f3f7f5;
- color:#19352a;
- font-family:Arial,sans-serif;
+ background:#f1f3f4;
+ color:#202124;
+ font-family:Arial,"Noto Sans Bengali",sans-serif;
 }
 header{
  background:#087f5b;
  color:white;
- padding:18px;
+ padding:15px 16px;
  position:sticky;
  top:0;
- z-index:5;
+ z-index:10;
+ box-shadow:0 2px 7px #0002;
 }
-.logo{font-size:24px;font-weight:bold}
-.sub{font-size:12px;margin-top:5px}
-.container{max-width:850px;margin:auto;padding:15px}
-h2{font-size:20px}
-.hidden{display:none!important}
-.choices{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
- margin-top:20px;
+.top{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
 }
-.choice{
- background:white;
- border-radius:17px;
- padding:22px 10px;
- text-align:center;
- box-shadow:0 3px 12px #0001;
-}
-.emoji{font-size:43px}
-button{
- border:0;
- background:#087f5b;
- color:white;
- padding:12px 15px;
- border-radius:10px;
- font-size:14px;
- cursor:pointer;
-}
-.choice button{width:100%}
+.logo{font-size:25px;font-weight:bold}
+.tag{font-size:12px;margin-top:4px}
 .search{
  width:100%;
- padding:14px;
- border:1px solid #ddd;
+ margin-top:13px;
+ padding:13px 17px;
+ border:0;
  border-radius:25px;
  font-size:15px;
+ outline:none;
+}
+.container{
+ max-width:900px;
+ margin:auto;
+ padding:14px 12px 90px;
+}
+h2{font-size:20px}
+.hidden{display:none!important}
+.categories{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin:15px 0 20px;
+}
+.category{
+ background:white;
+ padding:16px 5px;
+ text-align:center;
+ border-radius:15px;
+ box-shadow:0 2px 8px #0001;
+ cursor:pointer;
+ border:2px solid transparent;
+}
+.category.active{border-color:#087f5b}
+.category .emoji{font-size:32px}
+.category h3{font-size:13px;margin:8px 0 0}
+.section-title{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin:20px 2px 12px;
+}
+.section-title h2{margin:0}
+.count{font-size:12px;color:#777}
+.video-list{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:18px;
+}
+.video-card{
+ background:white;
+ border-radius:13px;
+ overflow:hidden;
+ box-shadow:0 2px 8px #0001;
+ cursor:pointer;
+}
+.thumb{
+ width:100%;
+ aspect-ratio:16/9;
+ background:#ddd;
+ object-fit:cover;
+ display:block;
+}
+.video-details{padding:12px}
+.video-title{
+ font-size:15px;
+ font-weight:bold;
+ line-height:1.5;
+}
+.video-sub{font-size:12px;color:#777;margin-top:6px}
+.play-label{
+ display:inline-block;
+ background:#087f5b;
+ color:white;
+ padding:6px 12px;
+ border-radius:20px;
+ font-size:12px;
+ margin-top:10px;
+}
+.message{
+ background:white;
+ padding:20px;
+ border-radius:12px;
+ text-align:center;
+ line-height:1.7;
+ color:#68776f;
+}
+button{
+ border:0;
+ cursor:pointer;
+ border-radius:10px;
+ padding:11px 15px;
+ background:#087f5b;
+ color:white;
+ font-size:14px;
+}
+.tabs{
+ display:flex;
+ gap:8px;
+ overflow-x:auto;
+ padding:5px 0 12px;
+}
+.tabs button{
+ white-space:nowrap;
+ background:white;
+ color:#333;
+ border:1px solid #ddd;
+}
+.tabs button.active{
+ background:#087f5b;
+ color:white;
+}
+#watch{
+ background:#f1f3f4;
 }
 .player-box{
- background:white;
- padding:12px;
- border-radius:15px;
- margin-top:15px;
- box-shadow:0 3px 12px #0001;
+ background:#111;
+ border-radius:13px;
+ overflow:hidden;
 }
 #player{
  width:100%;
  aspect-ratio:16/9;
- min-height:200px;
- background:#111;
- border-radius:10px;
- overflow:hidden;
+ background:#000;
 }
 #player iframe{
  width:100%;
  height:100%;
  border:0;
 }
+.watch-info{
+ background:white;
+ padding:15px;
+ border-radius:12px;
+ margin-top:12px;
+}
+.watch-title{font-weight:bold;font-size:17px;line-height:1.5}
 .controls{
  display:flex;
  gap:8px;
- margin-top:13px;
+ margin-top:14px;
 }
-.controls button{flex:1;padding:13px 3px}
-.info{
- font-size:13px;
- color:#68776f;
- line-height:1.6;
-}
+.controls button{flex:1}
 .back{
  width:100%;
- background:#53665c;
  margin-top:15px;
+ background:#53665c;
 }
-.playlist-card{
- background:white;
- padding:18px;
- border-radius:14px;
- margin-top:13px;
- box-shadow:0 2px 9px #0001;
-}
-.playlist-card button{width:100%}
 .bottom{
  position:fixed;
  bottom:0;
  left:0;
  right:0;
+ z-index:20;
  background:white;
- padding:10px;
  display:flex;
  justify-content:space-around;
  border-top:1px solid #ddd;
+ padding:8px 0;
 }
 .bottom button{
  background:white;
  color:#087f5b;
+ flex:1;
+ border-radius:0;
 }
-.space{height:65px}
-@media(max-width:380px){
- .choices{grid-template-columns:1fr}
+.bottom button.active{font-weight:bold}
+.loader{
+ text-align:center;
+ padding:30px;
+ color:#68776f;
+}
+@media(min-width:600px){
+ .video-list{
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+ }
+ .category h3{font-size:15px}
+}
+@media(min-width:850px){
+ .video-list{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -126,173 +215,294 @@ button{
 <body>
 
 <header>
- <div class="logo">▶ Sabbir Safe</div>
- <div class="sub">নিরাপদ ভিডিও দেখার জগৎ</div>
+ <div class="top">
+  <div>
+   <div class="logo">▶ Sabbir Safe</div>
+   <div class="tag">নিরাপদ ভিডিও দেখার জগৎ</div>
+  </div>
+  <div style="font-size:25px">☰</div>
+ </div>
+ <input id="search" class="search"
+ placeholder="🔍 ভিডিও খুঁজুন..."
+ oninput="searchVideos(this.value)">
 </header>
 
-<section id="choose" class="container">
- <h2>আপনার বিভাগ নির্বাচন করুন</h2>
+<main id="main" class="container">
 
- <div class="choices">
-  <div class="choice">
+ <h2>আপনার পছন্দের বিভাগ</h2>
+
+ <div class="categories">
+  <div class="category active" onclick="selectCategory('kids',this)">
    <div class="emoji">🧒</div>
-   <h2>শিশু বিভাগ</h2>
-   <p>ছড়া, কার্টুন ও শিক্ষা</p>
-   <button onclick="openPlaylist('kids')">প্রবেশ করুন</button>
+   <h3>শিশু</h3>
   </div>
 
-  <div class="choice">
+  <div class="category" onclick="selectCategory('islamic',this)">
    <div class="emoji">🕌</div>
-   <h2>বড়দের বিভাগ</h2>
-   <p>কুরআন, ওয়াজ ও গজল</p>
-   <button onclick="openPlaylist('islamic')">প্রবেশ করুন</button>
+   <h3>ইসলামিক</h3>
+  </div>
+
+  <div class="category" onclick="selectCategory('sarf',this)">
+   <div class="emoji">📚</div>
+   <h3>মাদ্রাসা</h3>
   </div>
  </div>
 
- <p class="info">
-  Sabbir Safe-এ আপনাকে স্বাগতম।
-  আপনার পছন্দের বিভাগ থেকে ভিডিও দেখুন।
- </p>
-</section>
-
-<section id="home" class="container hidden">
- <input class="search" placeholder="🔍 Playlist খুঁজুন..."
- oninput="filterPlaylist(this.value)">
-
- <h2 id="sectionTitle">আপনার Playlist</h2>
-
- <div id="playlistCard" class="playlist-card">
-  <h3 id="playlistName"></h3>
-  <p class="info" id="playlistDescription"></p>
-  <button onclick="startWatching()">▶ ভিডিও চালু করুন</button>
+ <div class="tabs">
+  <button class="active" onclick="selectCategory('kids',this)">শিশু বিভাগ</button>
+  <button onclick="selectCategory('islamic',this)">ইসলামিক</button>
+  <button onclick="selectCategory('sarf',this)">এসো সরফ শিখি</button>
  </div>
 
- <button class="back" onclick="goHome()">বিভাগ পরিবর্তন করুন</button>
- <div class="space"></div>
-</section>
+ <div class="section-title">
+  <h2 id="sectionTitle">শিশু বিভাগের ভিডিও</h2>
+  <span class="count" id="videoCount"></span>
+ </div>
+
+ <div id="videoList" class="video-list">
+  <div class="loader">ভিডিও লোড হচ্ছে...</div>
+ </div>
+
+</main>
 
 <section id="watch" class="container hidden">
- <h2 id="watchTitle">ভিডিও দেখুন</h2>
+ <h2>▶ এখন চলছে</h2>
 
  <div class="player-box">
-  <div id="player">
-   <div style="color:white;text-align:center;padding:60px 5px">
-    Playlist প্রস্তুত হচ্ছে...
-   </div>
-  </div>
+  <div id="player"></div>
+ </div>
 
+ <div class="watch-info">
+  <div id="watchTitle" class="watch-title">ভিডিও নির্বাচন করুন</div>
   <div class="controls">
    <button onclick="previousVideo()">⏮ আগের</button>
    <button onclick="pauseVideo()">⏸ বিরতি</button>
    <button onclick="nextVideo()">পরের ⏭</button>
   </div>
-
-  <p id="videoTitle" class="info">
-   ভিডিও নির্বাচন করুন।
-  </p>
-
-  <p class="info">
-   Playlist-এর ভিডিও YouTube-এর নিজস্ব প্লেয়ারে চলবে।
-  </p>
  </div>
 
- <button class="back" onclick="backToList()">← Playlist-এ ফিরুন</button>
- <div class="space"></div>
+ <button class="back" onclick="backToVideos()">← ভিডিও তালিকায় ফিরুন</button>
 </section>
 
-<nav class="bottom hidden" id="bottom">
- <button onclick="goHome()">⌂<br>বিভাগ</button>
- <button onclick="backToList()">▤<br>Playlist</button>
+<nav class="bottom">
+ <button onclick="goHome()">⌂<br>Home</button>
+ <button onclick="goHome()">▤<br>ভিডিও</button>
+ <button onclick="showAbout()">ⓘ<br>সম্পর্কে</button>
 </nav>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
+/* =================================
+   SABBIR SAFE CONFIGURATION
+================================= */
+
+// এখানে নিজের API Key বসাবেন।
+// আসল Key GitHub-এ প্রকাশ করবেন না।
+const API_KEY = "YOUR_API_KEY";
+
 const playlists = {
  kids:{
   id:"PLPr2-LmXD6s4",
-  name:"Sabbir Safe Kids",
-  description:"শিশুদের ছড়া, কার্টুন ও শিক্ষামূলক ভিডিও"
+  name:"Sabbir Safe Kids"
  },
  islamic:{
   id:"PLVn2mfMGbX9o",
-  name:"Sabbir Safe Islamic",
-  description:"কুরআন তিলাওয়াত, ওয়াজ, গজল ও ইসলামিক শিক্ষা"
+  name:"Sabbir Safe Islamic"
+ },
+ sarf:{
+  id:"PLa1OIi8h8b48",
+  name:"এসো সরফ শিখি"
  }
 };
 
-let currentSection="";
+let currentCategory="kids";
+let videos=[];
+let currentIndex=0;
 let player=null;
-let apiReady=false;
 let playerReady=false;
-let pendingPlay=false;
+let apiReady=false;
+let pendingVideo=null;
 
 function onYouTubeIframeAPIReady(){
  apiReady=true;
- if(pendingPlay){
-  pendingPlay=false;
-  createPlayer();
+ if(pendingVideo){
+  createPlayer(pendingVideo);
+  pendingVideo=null;
  }
 }
 
-function openPlaylist(type){
- currentSection=type;
+function selectCategory(category,element){
+ currentCategory=category;
 
- document.getElementById("choose").classList.add("hidden");
- document.getElementById("watch").classList.add("hidden");
- document.getElementById("home").classList.remove("hidden");
- document.getElementById("bottom").classList.remove("hidden");
+ document.querySelectorAll(".category").forEach(x=>{
+  x.classList.remove("active");
+ });
+ document.querySelectorAll(".tabs button").forEach(x=>{
+  x.classList.remove("active");
+ });
 
- const p=playlists[type];
+ if(element)element.classList.add("active");
 
- document.getElementById("sectionTitle").textContent=p.name;
- document.getElementById("playlistName").textContent=p.name;
- document.getElementById("playlistDescription").textContent=p.description;
+ document.getElementById("search").value="";
+
+ const names={
+  kids:"শিশু বিভাগের ভিডিও",
+  islamic:"ইসলামিক বিভাগের ভিডিও",
+  sarf:"এসো সরফ শিখি"
+ };
+
+ document.getElementById("sectionTitle").textContent=names[category];
+
+ loadVideos(category);
 }
 
-function filterPlaylist(value){
- const card=document.getElementById("playlistCard");
- const name=playlists[currentSection].name.toLowerCase();
- card.style.display=name.includes(value.toLowerCase())?"block":"none";
-}
+async function loadVideos(category){
+ const list=document.getElementById("videoList");
+ list.innerHTML='<div class="loader">ভিডিও লোড হচ্ছে...</div>';
 
-function startWatching(){
- document.getElementById("home").classList.add("hidden");
- document.getElementById("watch").classList.remove("hidden");
- document.getElementById("bottom").classList.add("hidden");
+ videos=[];
 
- document.getElementById("watchTitle").textContent=
- playlists[currentSection].name;
-
- if(player && player.loadPlaylist){
-  player.loadPlaylist({
-   listType:"playlist",
-   list:playlists[currentSection].id,
-   index:0
-  });
+ if(API_KEY==="AIzaSyDlQZhB4b0r2D9KxnC7dmFNJdKjFO-T1hs"){
+  list.innerHTML=
+  '<div class="message">প্রথমে কোডের API_KEY জায়গায় আপনার YouTube Data API Key বসাতে হবে।</div>';
+  document.getElementById("videoCount").textContent="";
   return;
  }
 
- if(apiReady){
-  createPlayer();
- }else{
-  pendingPlay=true;
-  document.getElementById("videoTitle").textContent=
-  "YouTube Player প্রস্তুত হচ্ছে...";
+ const playlistID=playlists[category].id;
+
+ try{
+  const url=
+   "https://www.googleapis.com/youtube/v3/playlistItems"+
+   "?part=snippet&maxResults=50"+
+   "&playlistId="+encodeURIComponent(playlistID)+
+   "&key="+encodeURIComponent(API_KEY);
+
+  const response=await fetch(url);
+  const data=await response.json();
+
+  if(!response.ok){
+   throw new Error(data.error?.message||"API সমস্যা");
+  }
+
+  videos=(data.items||[])
+   .filter(item=>item.snippet?.resourceId?.videoId)
+   .map(item=>({
+    id:item.snippet.resourceId.videoId,
+    title:item.snippet.title,
+    thumbnail:
+     item.snippet.thumbnails?.maxres?.url||
+     item.snippet.thumbnails?.high?.url||
+     item.snippet.thumbnails?.medium?.url||
+     item.snippet.thumbnails?.default?.url
+   }));
+
+  renderVideos(videos);
+
+ }catch(error){
+  list.innerHTML=
+   '<div class="message">ভিডিও আনা যাচ্ছে না।<br>'+
+   'API Key, Playlist Public আছে কি না এবং API চালু আছে কি না পরীক্ষা করুন।<br>'+
+   '<small>'+escapeHTML(error.message)+'</small></div>';
  }
 }
 
-function createPlayer(){
- if(player)return;
+function renderVideos(items){
+ const list=document.getElementById("videoList");
 
- document.getElementById("player").innerHTML="";
+ document.getElementById("videoCount").textContent=
+ items.length+" টি ভিডিও";
+
+ if(items.length===0){
+  list.innerHTML='<div class="message">এই Playlist-এ এখনো ভিডিও পাওয়া যায়নি।</div>';
+  return;
+ }
+
+ list.innerHTML="";
+
+ items.forEach((video)=>{
+  const originalIndex=videos.indexOf(video);
+
+  const card=document.createElement("div");
+  card.className="video-card";
+
+  const img=document.createElement("img");
+  img.className="thumb";
+  img.src=video.thumbnail||"";
+  img.alt="ভিডিও ছবি";
+  img.loading="lazy";
+
+  const details=document.createElement("div");
+  details.className="video-details";
+
+  const title=document.createElement("div");
+  title.className="video-title";
+  title.textContent=video.title;
+
+  const sub=document.createElement("div");
+  sub.className="video-sub";
+  sub.textContent=playlists[currentCategory].name;
+
+  const play=document.createElement("span");
+  play.className="play-label";
+  play.textContent="▶ ভিডিও দেখুন";
+
+  details.append(title,sub,play);
+  card.append(img,details);
+
+  card.onclick=()=>openVideo(originalIndex);
+
+  list.appendChild(card);
+ });
+}
+
+function searchVideos(value){
+ const term=value.toLowerCase().trim();
+
+ const filtered=videos.filter(v=>
+  v.title.toLowerCase().includes(term)
+ );
+
+ renderVideos(filtered);
+}
+
+function openVideo(index){
+ if(index<0||index>=videos.length)return;
+
+ currentIndex=index;
+ const video=videos[index];
+
+ document.getElementById("main").classList.add("hidden");
+ document.getElementById("watch").classList.remove("hidden");
+
+ document.getElementById("watchTitle").textContent=video.title;
+
+ if(!apiReady){
+  pendingVideo=video.id;
+  document.getElementById("player").innerHTML=
+   '<div style="color:white;text-align:center;padding:45px 10px">ভিডিও প্রস্তুত হচ্ছে...</div>';
+  return;
+ }
+
+ if(player && player.loadVideoById){
+  player.loadVideoById(video.id);
+ }else{
+  createPlayer(video.id);
+ }
+}
+
+function createPlayer(videoID){
+ if(player){
+  player.loadVideoById(videoID);
+  return;
+ }
 
  player=new YT.Player("player",{
   width:"100%",
   height:"100%",
+  videoId:videoID,
   playerVars:{
-   listType:"playlist",
-   list:playlists[currentSection].id,
    autoplay:1,
    controls:1,
    playsinline:1,
@@ -303,58 +513,60 @@ function createPlayer(){
    onReady:function(event){
     playerReady=true;
     event.target.playVideo();
-    updateTitle();
-   },
-   onStateChange:function(event){
-    if(event.data===YT.PlayerState.PLAYING){
-     updateTitle();
-    }
    },
    onError:function(event){
-    document.getElementById("videoTitle").textContent=
-    "এই Playlist চালানো যাচ্ছে না। YouTube Embed অনুমতি পরীক্ষা করুন। Error: "+event.data;
+    document.getElementById("watchTitle").textContent=
+     "এই ভিডিওটি চালানো যাচ্ছে না। Error: "+event.data;
    }
   }
  });
 }
 
-function updateTitle(){
- if(!player || !player.getVideoData)return;
- const data=player.getVideoData();
- if(data && data.title){
-  document.getElementById("videoTitle").textContent=data.title;
+function nextVideo(){
+ if(currentIndex<videos.length-1){
+  openVideo(currentIndex+1);
  }
 }
 
-function nextVideo(){
- if(playerReady)player.nextVideo();
-}
-
 function previousVideo(){
- if(playerReady)player.previousVideo();
+ if(currentIndex>0){
+  openVideo(currentIndex-1);
+ }
 }
 
 function pauseVideo(){
  if(playerReady)player.pauseVideo();
 }
 
-function backToList(){
+function backToVideos(){
  if(playerReady)player.pauseVideo();
 
  document.getElementById("watch").classList.add("hidden");
- document.getElementById("home").classList.remove("hidden");
- document.getElementById("bottom").classList.remove("hidden");
+ document.getElementById("main").classList.remove("hidden");
 }
 
 function goHome(){
- if(playerReady)player.pauseVideo();
-
- document.getElementById("choose").classList.remove("hidden");
- document.getElementById("home").classList.add("hidden");
- document.getElementById("watch").classList.add("hidden");
- document.getElementById("bottom").classList.add("hidden");
- currentSection="";
+ backToVideos();
+ window.scrollTo(0,0);
 }
+
+function showAbout(){
+ alert("Sabbir Safe\nনিরাপদ ভিডিও দেখার জগৎ");
+}
+
+function escapeHTML(text){
+ return String(text).replace(/[&<>"']/g,function(c){
+  return {
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c];
+ });
+}
+
+loadVideos("kids");
 </script>
 
 </body>
