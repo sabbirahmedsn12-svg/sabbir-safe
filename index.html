@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabbir Safe</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}
+header{background:#087f5b;color:white;padding:17px;font-size:23px;font-weight:bold}
+header small{display:block;font-size:12px;margin-top:5px}
+.container{padding:18px}
+h2{text-align:center}
+.choice{background:white;border-radius:16px;padding:22px;margin:18px 0;text-align:center;box-shadow:0 3px 12px #0001}
+.choice button,.back{border:0;border-radius:10px;padding:13px 20px;background:#087f5b;color:white;font-size:17px;width:100%;margin-top:10px}
+.choice.child{border-top:5px solid #ffb703}
+.choice.adult{border-top:5px solid #087f5b}
+nav{display:flex;overflow:auto;background:white;padding:10px;gap:9px}
+nav button{border:0;background:#e7f3ef;padding:10px 15px;border-radius:20px;white-space:nowrap}
+nav button.active{background:#087f5b;color:white}
+.video{background:white;margin:15px 0;border-radius:13px;overflow:hidden;box-shadow:0 2px 8px #0001}
+.thumb{height:155px;background:#dceee7;display:flex;align-items:center;justify-content:center;font-size:48px}
+.video-info{padding:13px}
+.video-info p{color:#687078;font-size:13px}
+.hidden{display:none}
+footer{text-align:center;padding:20px;color:#777;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+Sabbir Safe
+<small>নিরাপদ ভিডিও দেখার একটি উদ্যোগ</small>
+</header>
+
+<section id="choose" class="container">
+<h2>আপনি কোন বিভাগে যেতে চান?</h2>
+
+<div class="choice child">
+<h2>🧒 শিশু বিভাগ</h2>
+<p>ছড়া, কার্টুন ও শিক্ষামূলক ভিডিও</p>
+<button onclick="openSection('child')">শিশু বিভাগে প্রবেশ</button>
+</div>
+
+<div class="choice adult">
+<h2>🕌 বড়দের বিভাগ</h2>
+<p>কুরআন, ওয়াজ, গজল ও ইসলামিক শিক্ষা</p>
+<button onclick="openSection('adult')">বড়দের বিভাগে প্রবেশ</button>
+</div>
+</section>
+
+<section id="home" class="hidden">
+<nav>
+<button class="active" onclick="category('সব ভিডিও',this)">সব ভিডিও</button>
+<button onclick="category('শিক্ষা',this)">শিক্ষা</button>
+<button onclick="category('বিনোদন',this)">বিনোদন</button>
+<button onclick="category('ইসলামিক',this)">ইসলামিক</button>
+</nav>
+
+<div class="container">
+<h2 id="sectionTitle">ভিডিও</h2>
+<div id="videos"></div>
+<button class="back" onclick="goBack()">বিভাগ পরিবর্তন করুন</button>
+</div>
+</section>
+
+<footer>© Sabbir Safe</footer>
+
+<script>
+let currentSection = "";
+
+const content = {
+child: [
+["📚","বাংলা ছড়া","শিশুদের জন্য ছড়া ও কবিতা","শিক্ষা"],
+["🎨","শিক্ষামূলক ভিডিও","শেখার আনন্দময় আয়োজন","শিক্ষা"],
+["🐦","শিশুদের কার্টুন","বাছাই করা শিশুতোষ কার্টুন","বিনোদন"]
+],
+adult: [
+["📖","কুরআন তিলাওয়াত","কুরআন শিক্ষা ও তিলাওয়াত","ইসলামিক"],
+["🕌","ইসলামিক ওয়াজ","ইসলামিক আলোচনা ও শিক্ষা","ইসলামিক"],
+["🎙️","ইসলামিক গজল","বাছাই করা গজল ও নাশিদ","ইসলামিক"]
+]
+};
+
+function openSection(type){
+currentSection=type;
+document.getElementById("choose").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+document.getElementById("sectionTitle").innerText =
+type==="child" ? "শিশু বিভাগের ভিডিও" : "বড়দের বিভাগের ভিডিও";
+showVideos("সব ভিডিও");
+}
+
+function showVideos(filter){
+let list=content[currentSection];
+let area=document.getElementById("videos");
+area.innerHTML="";
+list.filter(v=>filter==="সব ভিডিও"||v[3]===filter).forEach(v=>{
+area.innerHTML+=`
+<div class="video">
+<div class="thumb">${v[0]}</div>
+<div class="video-info">
+<strong>${v[1]}</strong>
+<p>${v[2]}</p>
+<small>ভিডিও শিগগিরই যুক্ত করা হবে</small>
+</div>
+</div>`;
+});
+}
+
+function category(name,btn){
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+showVideos(name);
+}
+
+function goBack(){
+document.getElementById("home").classList.add("hidden");
+document.getElementById("choose").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
