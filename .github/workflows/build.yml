@@ -70,26 +70,36 @@ jobs:
                   applicationId 'com.sabbir.safe'
                   minSdk 23
                   targetSdk 35
-                  versionCode 1
-                  versionName '1.0'
+                  versionCode 2
+                  versionName '1.1'
               }
+          }
+
+          dependencies {
+              implementation 'androidx.webkit:webkit:1.12.1'
           }
           EOF
 
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
               <uses-permission android:name="android.permission.INTERNET"/>
+
               <application
                   android:theme="@android:style/Theme.Material.Light.NoActionBar"
                   android:label="Sabbir Safe"
                   android:usesCleartextTraffic="false">
+
                   <activity
                       android:name=".MainActivity"
-                      android:exported="true">
+                      android:exported="true"
+                      android:hardwareAccelerated="true">
+
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN"/>
                           <category android:name="android.intent.category.LAUNCHER"/>
                       </intent-filter>
+
                   </activity>
               </application>
           </manifest>
@@ -102,30 +112,90 @@ jobs:
           import android.os.Bundle;
           import android.webkit.WebView;
           import android.webkit.WebSettings;
+          import android.webkit.WebViewClient;
+          import android.webkit.WebResourceRequest;
+          import android.webkit.WebResourceResponse;
+          import android.webkit.WebChromeClient;
+
+          import androidx.webkit.WebViewAssetLoader;
 
           public class MainActivity extends Activity {
+
               WebView webView;
+              WebViewAssetLoader assetLoader;
 
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
 
+                  assetLoader = new WebViewAssetLoader.Builder()
+                      .addPathHandler(
+                          "/assets/",
+                          new WebViewAssetLoader.AssetsPathHandler(this)
+                      )
+                      .build();
+
                   webView = new WebView(this);
+
                   WebSettings settings = webView.getSettings();
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
+                  settings.setMediaPlaybackRequiresUserGesture(false);
+                  settings.setJavaScriptCanOpenWindowsAutomatically(false);
+                  settings.setSupportMultipleWindows(false);
+
+                  webView.setWebChromeClient(new WebChromeClient());
+
+                  webView.setWebViewClient(new WebViewClient() {
+
+                      @Override
+                      public WebResourceResponse shouldInterceptRequest(
+                          WebView view,
+                          WebResourceRequest request
+                      ) {
+                          return assetLoader.shouldInterceptRequest(
+                              request.getUrl()
+                          );
+                      }
+
+                      @Override
+                      public boolean shouldOverrideUrlLoading(
+                          WebView view,
+                          WebResourceRequest request
+                      ) {
+                          String url = request.getUrl().toString();
+
+                          if (url.startsWith("https://") ||
+                              url.startsWith("http://")) {
+                              return false;
+                          }
+
+                          return true;
+                      }
+                  });
 
                   setContentView(webView);
-                  webView.loadUrl("file:///android_asset/index.html");
+
+                  webView.loadUrl(
+                      "https://appassets.androidplatform.net/assets/index.html"
+                  );
               }
 
               @Override
               public void onBackPressed() {
-                  if (webView.canGoBack()) {
+                  if (webView != null && webView.canGoBack()) {
                       webView.goBack();
                   } else {
                       super.onBackPressed();
                   }
+              }
+
+              @Override
+              protected void onDestroy() {
+                  if (webView != null) {
+                      webView.destroy();
+                  }
+                  super.onDestroy();
               }
           }
           EOF
@@ -138,3 +208,4 @@ jobs:
         with:
           name: Sabbir-Safe-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          
