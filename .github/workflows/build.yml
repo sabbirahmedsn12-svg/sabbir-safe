@@ -40,6 +40,7 @@ jobs:
                   gradlePluginPortal()
               }
           }
+
           dependencyResolutionManagement {
               repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
               repositories {
@@ -47,8 +48,15 @@ jobs:
                   mavenCentral()
               }
           }
+
           rootProject.name = "SabbirSafe"
           include ':app'
+          EOF
+
+          cat > gradle.properties <<'EOF'
+          android.useAndroidX=true
+          android.enableJetifier=true
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
           EOF
 
           cat > build.gradle <<'EOF'
@@ -70,8 +78,8 @@ jobs:
                   applicationId 'com.sabbir.safe'
                   minSdk 23
                   targetSdk 35
-                  versionCode 2
-                  versionName '1.1'
+                  versionCode 3
+                  versionName '1.2'
               }
           }
 
@@ -121,8 +129,8 @@ jobs:
 
           public class MainActivity extends Activity {
 
-              WebView webView;
-              WebViewAssetLoader assetLoader;
+              private WebView webView;
+              private WebViewAssetLoader assetLoader;
 
               @Override
               protected void onCreate(Bundle savedInstanceState) {
