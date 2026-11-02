@@ -4,346 +4,358 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sabbir Safe</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f5f7f6;color:#172820;font-family:Arial,sans-serif}
-header{background:#087f5b;color:white;padding:15px;position:sticky;top:0;z-index:5}
-.brand{font-size:23px;font-weight:bold}
-.brand small{font-size:11px;display:block;margin-top:4px}
-.container{padding:14px;max-width:850px;margin:auto}
-h2{font-size:19px}
+body{
+ margin:0;
+ background:#f3f7f5;
+ color:#19352a;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#087f5b;
+ color:white;
+ padding:18px;
+ position:sticky;
+ top:0;
+ z-index:5;
+}
+.logo{font-size:24px;font-weight:bold}
+.sub{font-size:12px;margin-top:5px}
+.container{max-width:850px;margin:auto;padding:15px}
+h2{font-size:20px}
 .hidden{display:none!important}
-.search{width:100%;padding:14px;border:1px solid #ddd;border-radius:25px;font-size:15px;outline:none;background:white}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-.choice{background:white;border-radius:16px;padding:22px 8px;text-align:center;box-shadow:0 2px 9px #0001}
-.choice .emoji{font-size:43px}
-.choice h2{font-size:17px}
-button{border:0;background:#087f5b;color:white;border-radius:10px;padding:11px 14px;font-size:14px;cursor:pointer}
+.choices{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+ margin-top:20px;
+}
+.choice{
+ background:white;
+ border-radius:17px;
+ padding:22px 10px;
+ text-align:center;
+ box-shadow:0 3px 12px #0001;
+}
+.emoji{font-size:43px}
+button{
+ border:0;
+ background:#087f5b;
+ color:white;
+ padding:12px 15px;
+ border-radius:10px;
+ font-size:14px;
+ cursor:pointer;
+}
 .choice button{width:100%}
-.category{display:flex;gap:8px;overflow-x:auto;padding:12px 0}
-.category button{white-space:nowrap;background:#e3eee9;color:#176b50}
-.category button.active{background:#087f5b;color:white}
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.video-card{background:white;border-radius:13px;overflow:hidden;box-shadow:0 2px 7px #0001;cursor:pointer}
-.thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:#dcebe4;display:block}
-.video-title{padding:10px;font-size:13px;font-weight:bold;line-height:1.5}
-.player-box{background:#fff;border-radius:14px;padding:10px;margin:12px 0}
-#player{width:100%;aspect-ratio:16/9;background:#111;border-radius:9px;overflow:hidden}
-#player iframe{width:100%;height:100%;border:0}
-.player-controls{display:flex;gap:7px;margin:12px 0}
-.player-controls button{flex:1;padding:12px 3px}
-.player-title{font-weight:bold;font-size:16px;padding:5px}
-.player-note{font-size:12px;color:#69756f}
-.back{background:#53645d;width:100%;margin-top:15px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:11px;border-top:1px solid #ddd;z-index:4}
-.bottom button{background:white;color:#087f5b;font-size:12px}
-.page-space{height:65px}
-.empty{padding:20px;text-align:center;color:#68736e}
-@media(min-width:650px){.video-grid{grid-template-columns:repeat(3,1fr)}}
+.search{
+ width:100%;
+ padding:14px;
+ border:1px solid #ddd;
+ border-radius:25px;
+ font-size:15px;
+}
+.player-box{
+ background:white;
+ padding:12px;
+ border-radius:15px;
+ margin-top:15px;
+ box-shadow:0 3px 12px #0001;
+}
+#player{
+ width:100%;
+ aspect-ratio:16/9;
+ min-height:200px;
+ background:#111;
+ border-radius:10px;
+ overflow:hidden;
+}
+#player iframe{
+ width:100%;
+ height:100%;
+ border:0;
+}
+.controls{
+ display:flex;
+ gap:8px;
+ margin-top:13px;
+}
+.controls button{flex:1;padding:13px 3px}
+.info{
+ font-size:13px;
+ color:#68776f;
+ line-height:1.6;
+}
+.back{
+ width:100%;
+ background:#53665c;
+ margin-top:15px;
+}
+.playlist-card{
+ background:white;
+ padding:18px;
+ border-radius:14px;
+ margin-top:13px;
+ box-shadow:0 2px 9px #0001;
+}
+.playlist-card button{width:100%}
+.bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ background:white;
+ padding:10px;
+ display:flex;
+ justify-content:space-around;
+ border-top:1px solid #ddd;
+}
+.bottom button{
+ background:white;
+ color:#087f5b;
+}
+.space{height:65px}
+@media(max-width:380px){
+ .choices{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="brand">▶ Sabbir Safe
-<small>নিরাপদ ভিডিও দেখার জগৎ</small>
-</div>
+ <div class="logo">▶ Sabbir Safe</div>
+ <div class="sub">নিরাপদ ভিডিও দেখার জগৎ</div>
 </header>
 
 <section id="choose" class="container">
-<h2>আপনার বিভাগ নির্বাচন করুন</h2>
-<div class="choices">
-<div class="choice">
-<div class="emoji">🧒</div>
-<h2>শিশু বিভাগ</h2>
-<p>ছড়া, কার্টুন ও শিক্ষা</p>
-<button onclick="openSection('child')">প্রবেশ করুন</button>
-</div>
-<div class="choice">
-<div class="emoji">🕌</div>
-<h2>বড়দের বিভাগ</h2>
-<p>কুরআন, ওয়াজ ও গজল</p>
-<button onclick="openSection('adult')">প্রবেশ করুন</button>
-</div>
-</div>
+ <h2>আপনার বিভাগ নির্বাচন করুন</h2>
+
+ <div class="choices">
+  <div class="choice">
+   <div class="emoji">🧒</div>
+   <h2>শিশু বিভাগ</h2>
+   <p>ছড়া, কার্টুন ও শিক্ষা</p>
+   <button onclick="openPlaylist('kids')">প্রবেশ করুন</button>
+  </div>
+
+  <div class="choice">
+   <div class="emoji">🕌</div>
+   <h2>বড়দের বিভাগ</h2>
+   <p>কুরআন, ওয়াজ ও গজল</p>
+   <button onclick="openPlaylist('islamic')">প্রবেশ করুন</button>
+  </div>
+ </div>
+
+ <p class="info">
+  Sabbir Safe-এ আপনাকে স্বাগতম।
+  আপনার পছন্দের বিভাগ থেকে ভিডিও দেখুন।
+ </p>
 </section>
 
-<section id="home" class="hidden">
-<div class="container">
-<input class="search" id="search" placeholder="🔍 ভিডিও খুঁজুন..." oninput="renderVideos()">
+<section id="home" class="container hidden">
+ <input class="search" placeholder="🔍 Playlist খুঁজুন..."
+ oninput="filterPlaylist(this.value)">
 
-<div class="category">
-<button class="active" onclick="setCategory('all',this)">সব ভিডিও</button>
-<button onclick="setCategory('first',this)">প্রথম ভিডিও</button>
-</div>
+ <h2 id="sectionTitle">আপনার Playlist</h2>
 
-<h2 id="homeTitle">ভিডিও দেখুন</h2>
-<div id="videoGrid" class="video-grid"></div>
-<button class="back" onclick="goBack()">বিভাগ পরিবর্তন করুন</button>
-</div>
-<div class="page-space"></div>
+ <div id="playlistCard" class="playlist-card">
+  <h3 id="playlistName"></h3>
+  <p class="info" id="playlistDescription"></p>
+  <button onclick="startWatching()">▶ ভিডিও চালু করুন</button>
+ </div>
+
+ <button class="back" onclick="goHome()">বিভাগ পরিবর্তন করুন</button>
+ <div class="space"></div>
 </section>
 
-<section id="watch" class="hidden">
-<div class="container">
-<div class="player-box">
-<div id="player">
-<div style="color:white;text-align:center;padding:55px 5px">ভিডিও লোড হচ্ছে...</div>
-</div>
-<h3 id="playingTitle" class="player-title"></h3>
-<p id="playingNumber" class="player-note"></p>
-<div class="player-controls">
-<button onclick="previousVideo()">⏮ আগের</button>
-<button onclick="skipVideo()">⏭ Skip</button>
-<button onclick="nextVideo()">Next ⏭</button>
-</div>
-<p class="player-note" id="playerMessage">ভিডিও অ্যাপের ভেতরে চালু হবে।</p>
-</div>
+<section id="watch" class="container hidden">
+ <h2 id="watchTitle">ভিডিও দেখুন</h2>
 
-<h2>পরবর্তী ভিডিও</h2>
-<div id="nextGrid" class="video-grid"></div>
-<button class="back" onclick="backToHome()">← ভিডিও তালিকায় ফিরুন</button>
-</div>
-<div class="page-space"></div>
+ <div class="player-box">
+  <div id="player">
+   <div style="color:white;text-align:center;padding:60px 5px">
+    Playlist প্রস্তুত হচ্ছে...
+   </div>
+  </div>
+
+  <div class="controls">
+   <button onclick="previousVideo()">⏮ আগের</button>
+   <button onclick="pauseVideo()">⏸ বিরতি</button>
+   <button onclick="nextVideo()">পরের ⏭</button>
+  </div>
+
+  <p id="videoTitle" class="info">
+   ভিডিও নির্বাচন করুন।
+  </p>
+
+  <p class="info">
+   Playlist-এর ভিডিও YouTube-এর নিজস্ব প্লেয়ারে চলবে।
+  </p>
+ </div>
+
+ <button class="back" onclick="backToList()">← Playlist-এ ফিরুন</button>
+ <div class="space"></div>
 </section>
 
-<nav class="bottom hidden" id="bottomNav">
-<button onclick="backToHome()">⌂<br>হোম</button>
-<button onclick="goBack()">⇄<br>বিভাগ</button>
+<nav class="bottom hidden" id="bottom">
+ <button onclick="goHome()">⌂<br>বিভাগ</button>
+ <button onclick="backToList()">▤<br>Playlist</button>
 </nav>
 
 <script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
-const videos={
-child:[
-["-bwL3_jRANk","শিশুদের ভিডিও ১"],
-["DRgsQGEXD5w","শিশুদের ভিডিও ২"],
-["iIB-g85Cats","শিশুদের লাইভ ভিডিও ৩"],
-["kvG4V9PAA_Y","শিশুদের ভিডিও ৪"],
-["jgiwI-fKZ9w","শিশুদের ভিডিও ৫"],
-["oubIqA9qu4Y","শিশুদের ভিডিও ৬"],
-["MviEerxRT7o","শিশুদের ভিডিও ৭"],
-["C1IsnVmGL4Q","শিশুদের ভিডিও ৮"],
-["LzKwN7FLsgw","শিশুদের ভিডিও ৯"],
-["h6cSa-iR_Xw","শিশুদের ভিডিও ১০"],
-["RcwAfMDhwb8","শিশুদের ভিডিও ১১"],
-["nVROMHyrxIw","শিশুদের ভিডিও ১২"],
-["7oqeGo6DyF8","শিশুদের ভিডিও ১৩"],
-["U3MHqpJY2GM","শিশুদের ভিডিও ১৪"],
-["nVTuiSo0mAE","শিশুদের ভিডিও ১৫"],
-["Ac26Zd7yW9g","শিশুদের ভিডিও ১৬"],
-["mbjwFB3fy3k","শিশুদের ভিডিও ১৭"],
-["qWmRBaBSOjY","শিশুদের ভিডিও ১৮"],
-["9yWMdCKCxow","শিশুদের ভিডিও ১৯"],
-["R_ZaT7GYTTs","শিশুদের ভিডিও ২০"],
-["1uzwT3Hw2Qw","শিশুদের ভিডিও ২১"],
-["IqIDIvZwluQ","শিশুদের ভিডিও ২২"],
-["DW827Zap6Vo","শিশুদের ভিডিও ২৩"]
-],
-adult:[
-["PM2egsYpIoo","ইসলামিক ভিডিও ১"],
-["ESUiTZQ_70U","ইসলামিক লাইভ ভিডিও ২"],
-["eNBIrOcwPMk","ইসলামিক ভিডিও ৩"],
-["n28cUaCeOwA","ইসলামিক ভিডিও ৪"],
-["5FPLQz3j24w","ইসলামিক ভিডিও ৫"],
-["xs2McIdnDgw","ইসলামিক ভিডিও ৬"],
-["lD4dJXWluK0","ইসলামিক ভিডিও ৭"],
-["PbECHmDrgLs","ইসলামিক ভিডিও ৮"],
-["c5B1AJELJNw","ইসলামিক ভিডিও ৯"],
-["_-FbUEtVj-Q","ইসলামিক ভিডিও ১০"],
-["y6EiOXAHS8g","ইসলামিক ভিডিও ১১"],
-["89ExJX_KQ6o","ইসলামিক ভিডিও ১২"],
-["IYOVp0mTW0o","ইসলামিক ভিডিও ১৩"],
-["-Lp-QU6tFYQ","ইসলামিক ভিডিও ১৪"],
-["i7GBckM0ZeU","ইসলামিক ভিডিও ১৫"],
-["-S44u6_y6wk","ইসলামিক ভিডিও ১৬"],
-["2_GKDtPc5nY","ইসলামিক ভিডিও ১৭"],
-["Skhld6n0Czc","ইসলামিক ভিডিও ১৮"],
-["oXCfQhPIIss","ইসলামিক ভিডিও ১৯"],
-["k8hZuzGFCO4","ইসলামিক ভিডিও ২০"],
-["9Ea2EN4pEYM","ইসলামিক ভিডিও ২১"],
-["Q3tO602gs2Q","ইসলামিক ভিডিও ২২"],
-["kXl5tifTvrY","ইসলামিক ভিডিও ২৩"],
-["W6DbMmxBCS4","ইসলামিক লাইভ ভিডিও ২৪"],
-["AZVpL1D3eNA","ইসলামিক ভিডিও ২৫"],
-["_4cHY-xErww","ইসলামিক ভিডিও ২৬"],
-["2zHFvPiAiY8","ইসলামিক ভিডিও ২৭"],
-["_6hHPARbA7c","ইসলামিক ভিডিও ২৮"],
-["gg7claSY6XA","ইসলামিক ভিডিও ২৯"],
-["79pKSiIFXp4","ইসলামিক ভিডিও ৩০"],
-["ZYuJCEwZnKs","ইসলামিক ভিডিও ৩১"],
-["16gT0Hm5UR4","ইসলামিক ভিডিও ৩২"],
-["TZJTTloCubU","ইসলামিক ভিডিও ৩৩"]
-]
+const playlists = {
+ kids:{
+  id:"PLPr2-LmXD6s4",
+  name:"Sabbir Safe Kids",
+  description:"শিশুদের ছড়া, কার্টুন ও শিক্ষামূলক ভিডিও"
+ },
+ islamic:{
+  id:"PLVn2mfMGbX9o",
+  name:"Sabbir Safe Islamic",
+  description:"কুরআন তিলাওয়াত, ওয়াজ, গজল ও ইসলামিক শিক্ষা"
+ }
 };
 
-let section="";
-let index=0;
+let currentSection="";
 let player=null;
 let apiReady=false;
-let category="all";
+let playerReady=false;
+let pendingPlay=false;
 
 function onYouTubeIframeAPIReady(){
-apiReady=true;
+ apiReady=true;
+ if(pendingPlay){
+  pendingPlay=false;
+  createPlayer();
+ }
 }
 
-function openSection(s){
-section=s;
-index=0;
-document.getElementById("choose").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-document.getElementById("bottomNav").classList.remove("hidden");
-document.getElementById("homeTitle").textContent=
-s==="child"?"🧒 শিশু বিভাগের ভিডিও":"🕌 বড়দের ভিডিও";
-document.getElementById("search").value="";
-renderVideos();
+function openPlaylist(type){
+ currentSection=type;
+
+ document.getElementById("choose").classList.add("hidden");
+ document.getElementById("watch").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ document.getElementById("bottom").classList.remove("hidden");
+
+ const p=playlists[type];
+
+ document.getElementById("sectionTitle").textContent=p.name;
+ document.getElementById("playlistName").textContent=p.name;
+ document.getElementById("playlistDescription").textContent=p.description;
 }
 
-function setCategory(c,btn){
-category=c;
-document.querySelectorAll(".category button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-renderVideos();
+function filterPlaylist(value){
+ const card=document.getElementById("playlistCard");
+ const name=playlists[currentSection].name.toLowerCase();
+ card.style.display=name.includes(value.toLowerCase())?"block":"none";
 }
 
-function renderVideos(){
-const grid=document.getElementById("videoGrid");
-grid.innerHTML="";
-const query=document.getElementById("search").value.toLowerCase();
+function startWatching(){
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("watch").classList.remove("hidden");
+ document.getElementById("bottom").classList.add("hidden");
 
-videos[section].forEach((v,i)=>{
-if(!v[1].toLowerCase().includes(query))return;
-if(category==="first" && i!==0)return;
+ document.getElementById("watchTitle").textContent=
+ playlists[currentSection].name;
 
-const card=document.createElement("div");
-card.className="video-card";
+ if(player && player.loadPlaylist){
+  player.loadPlaylist({
+   listType:"playlist",
+   list:playlists[currentSection].id,
+   index:0
+  });
+  return;
+ }
 
-const img=document.createElement("img");
-img.className="thumb";
-img.loading="lazy";
-img.src="https://i.ytimg.com/vi/"+v[0]+"/hqdefault.jpg";
-img.alt=v[1];
-
-const title=document.createElement("div");
-title.className="video-title";
-title.textContent=v[1];
-
-card.append(img,title);
-card.onclick=()=>playVideo(i);
-grid.appendChild(card);
-});
-
-if(!grid.children.length){
-grid.innerHTML='<div class="empty">কোনো ভিডিও পাওয়া যায়নি।</div>';
-}
+ if(apiReady){
+  createPlayer();
+ }else{
+  pendingPlay=true;
+  document.getElementById("videoTitle").textContent=
+  "YouTube Player প্রস্তুত হচ্ছে...";
+ }
 }
 
-function playVideo(i){
-index=i;
-document.getElementById("home").classList.add("hidden");
-document.getElementById("watch").classList.remove("hidden");
-document.getElementById("bottomNav").classList.add("hidden");
-updatePlayerInfo();
-renderNext();
+function createPlayer(){
+ if(player)return;
 
-if(!apiReady){
-document.getElementById("playerMessage").textContent="YouTube প্লেয়ার প্রস্তুত হচ্ছে...";
-setTimeout(()=>playVideo(index),700);
-return;
-}
+ document.getElementById("player").innerHTML="";
 
-if(player && player.loadVideoById){
-player.loadVideoById(videos[section][index][0]);
-return;
-}
-
-player=new YT.Player("player",{
-width:"100%",
-height:"100%",
-videoId:videos[section][index][0],
-playerVars:{
-autoplay:1,
-controls:1,
-rel:0,
-playsinline:1,
-fs:1
-},
-events:{
-onReady:function(e){
-e.target.playVideo();
-},
-onStateChange:function(e){
-if(e.data===YT.PlayerState.ENDED){
-nextVideo();
-}
-},
-onError:function(){
-document.getElementById("playerMessage").textContent=
-"এই ভিডিওটি অ্যাপের ভেতরে চালানো যাচ্ছে না। অন্য ভিডিও চেষ্টা করুন।";
-}
-}
-});
+ player=new YT.Player("player",{
+  width:"100%",
+  height:"100%",
+  playerVars:{
+   listType:"playlist",
+   list:playlists[currentSection].id,
+   autoplay:1,
+   controls:1,
+   playsinline:1,
+   rel:0,
+   origin:"https://appassets.androidplatform.net"
+  },
+  events:{
+   onReady:function(event){
+    playerReady=true;
+    event.target.playVideo();
+    updateTitle();
+   },
+   onStateChange:function(event){
+    if(event.data===YT.PlayerState.PLAYING){
+     updateTitle();
+    }
+   },
+   onError:function(event){
+    document.getElementById("videoTitle").textContent=
+    "এই Playlist চালানো যাচ্ছে না। YouTube Embed অনুমতি পরীক্ষা করুন। Error: "+event.data;
+   }
+  }
+ });
 }
 
-function updatePlayerInfo(){
-const v=videos[section][index];
-document.getElementById("playingTitle").textContent=v[1];
-document.getElementById("playingNumber").textContent=
-"ভিডিও "+(index+1)+" / "+videos[section].length;
-}
-
-function renderNext(){
-const grid=document.getElementById("nextGrid");
-grid.innerHTML="";
-videos[section].forEach((v,i)=>{
-if(i<=index)return;
-const card=document.createElement("div");
-card.className="video-card";
-const img=document.createElement("img");
-img.className="thumb";
-img.src="https://i.ytimg.com/vi/"+v[0]+"/hqdefault.jpg";
-img.alt=v[1];
-const title=document.createElement("div");
-title.className="video-title";
-title.textContent=v[1];
-card.append(img,title);
-card.onclick=()=>playVideo(i);
-grid.appendChild(card);
-});
+function updateTitle(){
+ if(!player || !player.getVideoData)return;
+ const data=player.getVideoData();
+ if(data && data.title){
+  document.getElementById("videoTitle").textContent=data.title;
+ }
 }
 
 function nextVideo(){
-if(index<videos[section].length-1){
-playVideo(index+1);
-}else{
-document.getElementById("playingTitle").textContent="সব ভিডিও দেখা শেষ!";
-}
+ if(playerReady)player.nextVideo();
 }
 
 function previousVideo(){
-if(index>0)playVideo(index-1);
+ if(playerReady)player.previousVideo();
 }
 
-function skipVideo(){
-nextVideo();
+function pauseVideo(){
+ if(playerReady)player.pauseVideo();
 }
 
-function backToHome(){
-if(player && player.pauseVideo)player.pauseVideo();
-document.getElementById("watch").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-document.getElementById("bottomNav").classList.remove("hidden");
-renderVideos();
+function backToList(){
+ if(playerReady)player.pauseVideo();
+
+ document.getElementById("watch").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ document.getElementById("bottom").classList.remove("hidden");
 }
 
-function goBack(){
-if(player && player.stopVideo)player.stopVideo();
-section="";
-document.getElementById("home").classList.add("hidden");
-document.getElementById("watch").classList.add("hidden");
-document.getElementById("choose").classList.remove("hidden");
-document.getElementById("bottomNav").classList.add("hidden");
+function goHome(){
+ if(playerReady)player.pauseVideo();
+
+ document.getElementById("choose").classList.remove("hidden");
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("watch").classList.add("hidden");
+ document.getElementById("bottom").classList.add("hidden");
+ currentSection="";
 }
 </script>
+
 </body>
 </html>
