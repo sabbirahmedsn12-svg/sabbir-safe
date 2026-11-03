@@ -2,276 +2,96 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Sabbir Safe</title>
-
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#f1f3f4;
- color:#202124;
- font-family:Arial,"Noto Sans Bengali",sans-serif;
-}
-header{
- background:#087f5b;
- color:white;
- padding:15px 16px;
- position:sticky;
- top:0;
- z-index:10;
- box-shadow:0 2px 7px #0002;
-}
-.top{
- display:flex;
- align-items:center;
- justify-content:space-between;
-}
-.logo{font-size:25px;font-weight:bold}
+body{margin:0;background:#f1f3f4;color:#202124;font-family:Arial,"Noto Sans Bengali",sans-serif}
+header{background:#087f5b;color:white;padding:14px 15px;position:sticky;top:0;z-index:10}
+.top{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:23px;font-weight:bold}
 .tag{font-size:12px;margin-top:4px}
-.search{
- width:100%;
- margin-top:13px;
- padding:13px 17px;
- border:0;
- border-radius:25px;
- font-size:15px;
- outline:none;
-}
-.container{
- max-width:900px;
- margin:auto;
- padding:14px 12px 90px;
-}
-h2{font-size:20px}
+.search{width:100%;margin-top:12px;padding:12px 16px;border:0;border-radius:24px;font-size:15px}
+.container{max-width:900px;margin:auto;padding:13px 12px 85px}
+h2{font-size:19px}
 .hidden{display:none!important}
-.categories{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:10px;
- margin:15px 0 20px;
-}
-.category{
- background:white;
- padding:16px 5px;
- text-align:center;
- border-radius:15px;
- box-shadow:0 2px 8px #0001;
- cursor:pointer;
- border:2px solid transparent;
-}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}
+.category{background:white;padding:13px 4px;text-align:center;border-radius:13px;border:2px solid transparent;cursor:pointer}
 .category.active{border-color:#087f5b}
-.category .emoji{font-size:32px}
-.category h3{font-size:13px;margin:8px 0 0}
-.section-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin:20px 2px 12px;
-}
+.emoji{font-size:29px}
+.category h3{font-size:13px;margin:6px 0 0}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 12px}
+.tabs button{white-space:nowrap;background:white;color:#333;border:1px solid #ddd}
+.tabs button.active{background:#087f5b;color:white}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:15px 2px 12px}
 .section-title h2{margin:0}
 .count{font-size:12px;color:#777}
-.video-list{
- display:grid;
- grid-template-columns:1fr;
- gap:18px;
-}
-.video-card{
- background:white;
- border-radius:13px;
- overflow:hidden;
- box-shadow:0 2px 8px #0001;
- cursor:pointer;
-}
-.thumb{
- width:100%;
- aspect-ratio:16/9;
- background:#ddd;
- object-fit:cover;
- display:block;
-}
-.video-details{padding:12px}
-.video-title{
- font-size:15px;
- font-weight:bold;
- line-height:1.5;
-}
-.video-sub{font-size:12px;color:#777;margin-top:6px}
-.play-label{
- display:inline-block;
- background:#087f5b;
- color:white;
- padding:6px 12px;
- border-radius:20px;
- font-size:12px;
- margin-top:10px;
-}
-.message{
- background:white;
- padding:20px;
- border-radius:12px;
- text-align:center;
- line-height:1.7;
- color:#68776f;
-}
-button{
- border:0;
- cursor:pointer;
- border-radius:10px;
- padding:11px 15px;
- background:#087f5b;
- color:white;
- font-size:14px;
-}
-.tabs{
- display:flex;
- gap:8px;
- overflow-x:auto;
- padding:5px 0 12px;
-}
-.tabs button{
- white-space:nowrap;
- background:white;
- color:#333;
- border:1px solid #ddd;
-}
-.tabs button.active{
- background:#087f5b;
- color:white;
-}
-#watch{
- background:#f1f3f4;
-}
-.player-box{
- background:#111;
- border-radius:13px;
- overflow:hidden;
-}
-#player{
- width:100%;
- aspect-ratio:16/9;
- background:#000;
-}
-#player iframe{
- width:100%;
- height:100%;
- border:0;
-}
-.watch-info{
- background:white;
- padding:15px;
- border-radius:12px;
- margin-top:12px;
-}
-.watch-title{font-weight:bold;font-size:17px;line-height:1.5}
-.controls{
- display:flex;
- gap:8px;
- margin-top:14px;
-}
-.controls button{flex:1}
-.back{
- width:100%;
- margin-top:15px;
- background:#53665c;
-}
-.bottom{
- position:fixed;
- bottom:0;
- left:0;
- right:0;
- z-index:20;
- background:white;
- display:flex;
- justify-content:space-around;
- border-top:1px solid #ddd;
- padding:8px 0;
-}
-.bottom button{
- background:white;
- color:#087f5b;
- flex:1;
- border-radius:0;
-}
-.bottom button.active{font-weight:bold}
-.loader{
- text-align:center;
- padding:30px;
- color:#68776f;
-}
-@media(min-width:600px){
- .video-list{
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
- }
- .category h3{font-size:15px}
-}
-@media(min-width:850px){
- .video-list{grid-template-columns:repeat(3,1fr)}
-}
+.video-list{display:grid;grid-template-columns:1fr;gap:14px}
+.video-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 7px #0001;cursor:pointer}
+.thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#ddd}
+.video-details{padding:10px}
+.video-title{font-size:14px;font-weight:bold;line-height:1.5}
+.video-sub{font-size:12px;color:#777;margin-top:5px}
+.play-label{display:inline-block;background:#087f5b;color:white;padding:6px 11px;border-radius:18px;font-size:12px;margin-top:8px}
+.message{background:white;padding:18px;border-radius:12px;text-align:center;line-height:1.7;color:#68776f}
+button{border:0;cursor:pointer;border-radius:9px;padding:10px 13px;background:#087f5b;color:white;font-size:14px}
+#watch{padding-top:12px}
+.player-box{background:#000;border-radius:12px;overflow:hidden;width:100%;max-width:650px;margin:auto}
+#player{width:100%;aspect-ratio:16/9;background:#000}
+#player iframe{width:100%!important;height:100%!important;border:0}
+.player-box.shorts{max-width:430px;width:min(100%,430px)}
+.player-box.shorts #player{aspect-ratio:9/16}
+.watch-info{background:white;padding:13px;border-radius:12px;margin-top:10px}
+.watch-title{font-weight:bold;font-size:16px;line-height:1.5}
+.controls{display:flex;gap:7px;margin-top:12px}
+.controls button{flex:1;padding:10px 5px}
+.back{width:100%;margin:12px 0;background:#53665c}
+.watch-list-title{margin:22px 2px 12px}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:20;background:white;display:flex;border-top:1px solid #ddd;padding:7px 0}
+.bottom button{background:white;color:#087f5b;flex:1;border-radius:0}
+.loader{text-align:center;padding:25px;color:#68776f}
+#parentPanel,#lockScreen{position:fixed;inset:0;background:#f1f3f4;z-index:100;padding:22px 16px;overflow:auto}
+.panel-card{max-width:420px;margin:45px auto;background:white;padding:20px;border-radius:16px;box-shadow:0 3px 15px #0002}
+.panel-card h2{margin-top:0}
+.panel-card input,.panel-card select{width:100%;padding:13px;margin:8px 0 13px;border:1px solid #ccc;border-radius:9px;font-size:16px}
+.panel-card button{width:100%;margin:5px 0}
+.secondary{background:#64756d}
+.lock-icon{text-align:center;font-size:55px;margin:15px}
+.small-note{font-size:12px;color:#777;line-height:1.6}
+@media(min-width:600px){.video-list{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:850px){.video-list{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
-
 <body>
 
 <header>
  <div class="top">
-  <div>
-   <div class="logo">▶ Sabbir Safe</div>
-   <div class="tag">নিরাপদ ভিডিও দেখার জগৎ</div>
-  </div>
-  <div style="font-size:25px">☰</div>
+  <div><div class="logo">▶ Sabbir Safe</div><div class="tag">নিরাপদ ভিডিও দেখার জগৎ</div></div>
+  <button onclick="openParent()">🔒 অভিভাবক</button>
  </div>
- <input id="search" class="search"
- placeholder="🔍 ভিডিও খুঁজুন..."
- oninput="searchVideos(this.value)">
+ <input id="search" class="search" placeholder="🔍 ভিডিও খুঁজুন..." oninput="searchVideos(this.value)">
 </header>
 
 <main id="main" class="container">
-
  <h2>আপনার পছন্দের বিভাগ</h2>
-
  <div class="categories">
-  <div class="category active" onclick="selectCategory('kids',this)">
-   <div class="emoji">🧒</div>
-   <h3>শিশু</h3>
-  </div>
-
-  <div class="category" onclick="selectCategory('islamic',this)">
-   <div class="emoji">🕌</div>
-   <h3>ইসলামিক</h3>
-  </div>
-
-  <div class="category" onclick="selectCategory('sarf',this)">
-   <div class="emoji">📚</div>
-   <h3>মাদ্রাসা</h3>
-  </div>
+  <div class="category active" onclick="selectCategory('kids',this)"><div class="emoji">🧒</div><h3>শিশু</h3></div>
+  <div class="category" onclick="selectCategory('islamic',this)"><div class="emoji">🕌</div><h3>ইসলামিক</h3></div>
+  <div class="category" onclick="selectCategory('sarf',this)"><div class="emoji">📚</div><h3>মাদ্রাসা</h3></div>
  </div>
-
  <div class="tabs">
   <button class="active" onclick="selectCategory('kids',this)">শিশু বিভাগ</button>
   <button onclick="selectCategory('islamic',this)">ইসলামিক</button>
   <button onclick="selectCategory('sarf',this)">এসো সরফ শিখি</button>
  </div>
-
- <div class="section-title">
-  <h2 id="sectionTitle">শিশু বিভাগের ভিডিও</h2>
-  <span class="count" id="videoCount"></span>
- </div>
-
- <div id="videoList" class="video-list">
-  <div class="loader">ভিডিও লোড হচ্ছে...</div>
- </div>
-
+ <div class="section-title"><h2 id="sectionTitle">শিশু বিভাগের ভিডিও</h2><span class="count" id="videoCount"></span></div>
+ <div id="videoList" class="video-list"><div class="loader">ভিডিও লোড হচ্ছে...</div></div>
 </main>
 
 <section id="watch" class="container hidden">
+ <button class="back" onclick="backToVideos()">← ফিরে যান</button>
  <h2>▶ এখন চলছে</h2>
-
- <div class="player-box">
-  <div id="player"></div>
- </div>
-
+ <div id="playerBox" class="player-box"><div id="player"></div></div>
  <div class="watch-info">
   <div id="watchTitle" class="watch-title">ভিডিও নির্বাচন করুন</div>
   <div class="controls">
@@ -279,295 +99,264 @@ button{
    <button onclick="pauseVideo()">⏸ বিরতি</button>
    <button onclick="nextVideo()">পরের ⏭</button>
   </div>
+  <div class="controls">
+   <button onclick="toggleShorts()">📱 Shorts View</button>
+   <button onclick="normalView()" class="secondary">১৬:৯ সাধারণ</button>
+  </div>
  </div>
-
- <button class="back" onclick="backToVideos()">← ভিডিও তালিকায় ফিরুন</button>
+ <h2 class="watch-list-title">আরও ভিডিও দেখুন</h2>
+ <div id="watchVideoList" class="video-list"></div>
 </section>
 
 <nav class="bottom">
  <button onclick="goHome()">⌂<br>Home</button>
- <button onclick="goHome()">▤<br>ভিডিও</button>
- <button onclick="showAbout()">ⓘ<br>সম্পর্কে</button>
+ <button onclick="backToVideos()">▤<br>ভিডিও</button>
+ <button onclick="openParent()">🔒<br>অভিভাবক</button>
 </nav>
 
+<div id="parentPanel" class="hidden">
+ <div class="panel-card">
+  <h2>🔒 অভিভাবক সেটিংস</h2>
+  <div id="pinSetup">
+   <p>প্রথমবার ব্যবহারের জন্য মা-বাবার ৪ সংখ্যার PIN তৈরি করুন।</p>
+   <input id="newPin" type="password" inputmode="numeric" maxlength="4" placeholder="নতুন ৪ সংখ্যার PIN">
+   <input id="confirmPin" type="password" inputmode="numeric" maxlength="4" placeholder="PIN আবার লিখুন">
+   <button onclick="saveFirstPin()">PIN তৈরি করুন</button>
+  </div>
+  <div id="pinLogin" class="hidden">
+   <p>অভিভাবকের PIN দিন।</p>
+   <input id="parentPin" type="password" inputmode="numeric" maxlength="4" placeholder="৪ সংখ্যার PIN">
+   <button onclick="verifyParent()">প্রবেশ করুন</button>
+  </div>
+  <div id="parentSettings" class="hidden">
+   <label>প্রতিবার ব্যবহারের সময়সীমা</label>
+   <select id="timeLimit">
+    <option value="10">১০ মিনিট</option>
+    <option value="15">১৫ মিনিট</option>
+    <option value="20">২০ মিনিট</option>
+    <option value="30">৩০ মিনিট</option>
+    <option value="45">৪৫ মিনিট</option>
+    <option value="60">৬০ মিনিট</option>
+    <option value="0">সময় সীমা বন্ধ</option>
+   </select>
+   <button onclick="saveTimeLimit()">সময় সংরক্ষণ করুন</button>
+   <hr>
+   <h3>PIN পরিবর্তন</h3>
+   <input id="oldPin" type="password" inputmode="numeric" maxlength="4" placeholder="বর্তমান PIN">
+   <input id="changePin" type="password" inputmode="numeric" maxlength="4" placeholder="নতুন PIN">
+   <button onclick="changeParentPin()">PIN পরিবর্তন করুন</button>
+   <p class="small-note">PIN ভুলে গেলে অ্যাপের ভেতর থেকে রিসেট করা যাবে না। অভিভাবকের সহায়তায় অ্যাপের ডেটা রিসেট করতে হবে।</p>
+  </div>
+  <button class="secondary" onclick="closeParent()">বন্ধ করুন</button>
+ </div>
+</div>
+
+<div id="lockScreen" class="hidden">
+ <div class="panel-card">
+  <div class="lock-icon">🔒</div>
+  <h2 style="text-align:center">সময় শেষ হয়েছে</h2>
+  <p style="text-align:center">আবার ব্যবহার করতে অভিভাবকের PIN প্রয়োজন।</p>
+  <input id="unlockPin" type="password" inputmode="numeric" maxlength="4" placeholder="অভিভাবকের PIN">
+  <button onclick="unlockApp()">PIN দিয়ে খুলুন</button>
+ </div>
+</div>
+
 <script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
-/* =================================
-   SABBIR SAFE CONFIGURATION
-================================= */
-
-// এখানে নিজের API Key বসাবেন।
-// আসল Key GitHub-এ প্রকাশ করবেন না।
-const API_KEY = "AIzaSyBGxV-Em0XVMILfyckAaB1IRIrGsn1eLTw";
-
+const API_KEY = "AIzaSyDlQZhB4b0r2D9KxnC7dmFNJdKjFO-T1hs";
 const playlists = {
- kids:{
-  id:"PLPr2-LmXD6s4",
-  name:"Sabbir Safe Kids"
- },
- islamic:{
-  id:"PLVn2mfMGbX9o",
-  name:"Sabbir Safe Islamic"
- },
- sarf:{
-  id:"PLa1OIi8h8b48",
-  name:"এসো সরফ শিখি"
- }
+ kids:{id:"PLPr2-LmXD6s4",name:"Sabbir Safe Kids"},
+ islamic:{id:"PLVn2mfMGbX9o",name:"Sabbir Safe Islamic"},
+ sarf:{id:"PLa1OIi8h8b48",name:"এসো সরফ শিখি"}
 };
 
-let currentCategory="kids";
-let videos=[];
-let currentIndex=0;
-let player=null;
-let playerReady=false;
-let apiReady=false;
-let pendingVideo=null;
+let currentCategory="kids",videos=[],currentIndex=0,player=null;
+let apiReady=false,pendingVideo=null,parentAuthenticated=false;
+let timerInterval=null;
 
 function onYouTubeIframeAPIReady(){
  apiReady=true;
- if(pendingVideo){
-  createPlayer(pendingVideo);
-  pendingVideo=null;
- }
+ if(pendingVideo){createPlayer(pendingVideo);pendingVideo=null;}
 }
 
 function selectCategory(category,element){
  currentCategory=category;
-
- document.querySelectorAll(".category").forEach(x=>{
-  x.classList.remove("active");
+ document.querySelectorAll(".category,.tabs button").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".category,.tabs button").forEach(x=>{
+  const action=x.getAttribute("onclick")||"";
+  if(action.includes("'"+category+"'"))x.classList.add("active");
  });
- document.querySelectorAll(".tabs button").forEach(x=>{
-  x.classList.remove("active");
- });
-
- if(element)element.classList.add("active");
-
  document.getElementById("search").value="";
-
- const names={
-  kids:"শিশু বিভাগের ভিডিও",
-  islamic:"ইসলামিক বিভাগের ভিডিও",
-  sarf:"এসো সরফ শিখি"
- };
-
+ const names={kids:"শিশু বিভাগের ভিডিও",islamic:"ইসলামিক বিভাগের ভিডিও",sarf:"এসো সরফ শিখি"};
  document.getElementById("sectionTitle").textContent=names[category];
-
  loadVideos(category);
 }
 
 async function loadVideos(category){
  const list=document.getElementById("videoList");
  list.innerHTML='<div class="loader">ভিডিও লোড হচ্ছে...</div>';
-
  videos=[];
-
- if(API_KEY==="YOUR_API_KEY"){
-  list.innerHTML=
-  '<div class="message">প্রথমে কোডের API_KEY জায়গায় আপনার YouTube Data API Key বসাতে হবে।</div>';
-  document.getElementById("videoCount").textContent="";
+ if(!API_KEY.trim()){
+  list.innerHTML='<div class="message">YouTube API Key বসালে ভিডিওর তালিকা দেখা যাবে।</div>';
   return;
  }
-
- const playlistID=playlists[category].id;
-
  try{
-  const url=
-   "https://www.googleapis.com/youtube/v3/playlistItems"+
-   "?part=snippet&maxResults=50"+
-   "&playlistId="+encodeURIComponent(playlistID)+
-   "&key="+encodeURIComponent(API_KEY);
-
+  const url="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId="+encodeURIComponent(playlists[category].id)+"&key="+encodeURIComponent(API_KEY);
   const response=await fetch(url);
   const data=await response.json();
-
-  if(!response.ok){
-   throw new Error(data.error?.message||"API সমস্যা");
-  }
-
-  videos=(data.items||[])
-   .filter(item=>item.snippet?.resourceId?.videoId)
-   .map(item=>({
-    id:item.snippet.resourceId.videoId,
-    title:item.snippet.title,
-    thumbnail:
-     item.snippet.thumbnails?.maxres?.url||
-     item.snippet.thumbnails?.high?.url||
-     item.snippet.thumbnails?.medium?.url||
-     item.snippet.thumbnails?.default?.url
-   }));
-
-  renderVideos(videos);
-
- }catch(error){
-  list.innerHTML=
-   '<div class="message">ভিডিও আনা যাচ্ছে না।<br>'+
-   'API Key, Playlist Public আছে কি না এবং API চালু আছে কি না পরীক্ষা করুন।<br>'+
-   '<small>'+escapeHTML(error.message)+'</small></div>';
+  if(!response.ok)throw new Error(data.error?.message||"API সমস্যা");
+  videos=(data.items||[]).filter(x=>x.snippet?.resourceId?.videoId).map(x=>({
+   id:x.snippet.resourceId.videoId,
+   title:x.snippet.title,
+   thumbnail:x.snippet.thumbnails?.maxres?.url||x.snippet.thumbnails?.high?.url||x.snippet.thumbnails?.medium?.url||x.snippet.thumbnails?.default?.url
+  }));
+  renderVideos(videos,"videoList");
+ }catch(e){
+  list.innerHTML='<div class="message">ভিডিও আনা যাচ্ছে না।<br>'+escapeHTML(e.message)+'</div>';
  }
 }
 
-function renderVideos(items){
- const list=document.getElementById("videoList");
-
- document.getElementById("videoCount").textContent=
- items.length+" টি ভিডিও";
-
- if(items.length===0){
-  list.innerHTML='<div class="message">এই Playlist-এ এখনো ভিডিও পাওয়া যায়নি।</div>';
-  return;
- }
-
+function renderVideos(items,target){
+ const list=document.getElementById(target);
+ if(target==="videoList")document.getElementById("videoCount").textContent=items.length+" টি ভিডিও";
  list.innerHTML="";
-
- items.forEach((video)=>{
-  const originalIndex=videos.indexOf(video);
-
-  const card=document.createElement("div");
-  card.className="video-card";
-
-  const img=document.createElement("img");
-  img.className="thumb";
-  img.src=video.thumbnail||"";
-  img.alt="ভিডিও ছবি";
-  img.loading="lazy";
-
-  const details=document.createElement("div");
-  details.className="video-details";
-
-  const title=document.createElement("div");
-  title.className="video-title";
-  title.textContent=video.title;
-
-  const sub=document.createElement("div");
-  sub.className="video-sub";
-  sub.textContent=playlists[currentCategory].name;
-
-  const play=document.createElement("span");
-  play.className="play-label";
-  play.textContent="▶ ভিডিও দেখুন";
-
-  details.append(title,sub,play);
-  card.append(img,details);
-
-  card.onclick=()=>openVideo(originalIndex);
-
+ if(!items.length){list.innerHTML='<div class="message">কোনো ভিডিও পাওয়া যায়নি।</div>';return;}
+ items.forEach(v=>{
+  const index=videos.indexOf(v);
+  const card=document.createElement("div");card.className="video-card";
+  const img=document.createElement("img");img.className="thumb";img.src=v.thumbnail||"";img.loading="lazy";
+  const details=document.createElement("div");details.className="video-details";
+  const title=document.createElement("div");title.className="video-title";title.textContent=v.title;
+  const sub=document.createElement("div");sub.className="video-sub";sub.textContent=playlists[currentCategory].name;
+  const play=document.createElement("span");play.className="play-label";play.textContent="▶ ভিডিও দেখুন";
+  details.append(title,sub,play);card.append(img,details);
+  card.onclick=()=>openVideo(index);
   list.appendChild(card);
  });
 }
 
 function searchVideos(value){
  const term=value.toLowerCase().trim();
-
- const filtered=videos.filter(v=>
-  v.title.toLowerCase().includes(term)
- );
-
- renderVideos(filtered);
+ const filtered=videos.filter(v=>v.title.toLowerCase().includes(term));
+ renderVideos(filtered,"videoList");
 }
 
 function openVideo(index){
  if(index<0||index>=videos.length)return;
-
  currentIndex=index;
- const video=videos[index];
-
  document.getElementById("main").classList.add("hidden");
  document.getElementById("watch").classList.remove("hidden");
-
- document.getElementById("watchTitle").textContent=video.title;
-
- if(!apiReady){
-  pendingVideo=video.id;
-  document.getElementById("player").innerHTML=
-   '<div style="color:white;text-align:center;padding:45px 10px">ভিডিও প্রস্তুত হচ্ছে...</div>';
-  return;
- }
-
- if(player && player.loadVideoById){
-  player.loadVideoById(video.id);
- }else{
-  createPlayer(video.id);
- }
+ document.getElementById("watchTitle").textContent=videos[index].title;
+ renderVideos(videos.filter((v,i)=>i!==index),"watchVideoList");
+ window.scrollTo(0,0);
+ if(!apiReady){pendingVideo=videos[index].id;return;}
+ if(player&&player.loadVideoById)player.loadVideoById(videos[index].id);
+ else createPlayer(videos[index].id);
 }
 
-function createPlayer(videoID){
- if(player){
-  player.loadVideoById(videoID);
-  return;
- }
-
+function createPlayer(id){
  player=new YT.Player("player",{
-  width:"100%",
-  height:"100%",
-  videoId:videoID,
-  playerVars:{
-   autoplay:1,
-   controls:1,
-   playsinline:1,
-   rel:0,
-   origin:"https://appassets.androidplatform.net"
-  },
+  width:"100%",height:"100%",videoId:id,
+  playerVars:{autoplay:1,controls:1,playsinline:1,rel:0,origin:"https://appassets.androidplatform.net"},
   events:{
-   onReady:function(event){
-    playerReady=true;
-    event.target.playVideo();
-   },
-   onError:function(event){
-    document.getElementById("watchTitle").textContent=
-     "এই ভিডিওটি চালানো যাচ্ছে না। Error: "+event.data;
-   }
+   onReady:e=>e.target.playVideo(),
+   onError:e=>document.getElementById("watchTitle").textContent="ভিডিও চালানো যাচ্ছে না। Error: "+e.data
   }
  });
 }
-
-function nextVideo(){
- if(currentIndex<videos.length-1){
-  openVideo(currentIndex+1);
- }
-}
-
-function previousVideo(){
- if(currentIndex>0){
-  openVideo(currentIndex-1);
- }
-}
-
-function pauseVideo(){
- if(playerReady)player.pauseVideo();
-}
-
+function nextVideo(){if(currentIndex<videos.length-1)openVideo(currentIndex+1);}
+function previousVideo(){if(currentIndex>0)openVideo(currentIndex-1);}
+function pauseVideo(){if(player)player.pauseVideo();}
+function toggleShorts(){document.getElementById("playerBox").classList.add("shorts");}
+function normalView(){document.getElementById("playerBox").classList.remove("shorts");}
 function backToVideos(){
- if(playerReady)player.pauseVideo();
-
+ if(player)player.pauseVideo();
  document.getElementById("watch").classList.add("hidden");
  document.getElementById("main").classList.remove("hidden");
-}
-
-function goHome(){
- backToVideos();
  window.scrollTo(0,0);
 }
+function goHome(){backToVideos();}
+function showAbout(){alert("Sabbir Safe — নিরাপদ ভিডিও দেখার জগৎ");}
 
-function showAbout(){
- alert("Sabbir Safe\nনিরাপদ ভিডিও দেখার জগৎ");
+function openParent(){
+ document.getElementById("parentPanel").classList.remove("hidden");
+ const hasPin=!!localStorage.getItem("ss_parent_pin");
+ document.getElementById("pinSetup").classList.toggle("hidden",hasPin);
+ document.getElementById("pinLogin").classList.toggle("hidden",!hasPin);
+ document.getElementById("parentSettings").classList.add("hidden");
 }
-
-function escapeHTML(text){
- return String(text).replace(/[&<>"']/g,function(c){
-  return {
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#39;"
-  }[c];
- });
+function closeParent(){document.getElementById("parentPanel").classList.add("hidden");}
+function saveFirstPin(){
+ const a=document.getElementById("newPin").value,b=document.getElementById("confirmPin").value;
+ if(!/^\d{4}$/.test(a)){alert("৪ সংখ্যার PIN দিন।");return;}
+ if(a!==b){alert("দুটি PIN মিলছে না।");return;}
+ localStorage.setItem("ss_parent_pin",a);
+ showParentSettings();
+}
+function verifyParent(){
+ if(document.getElementById("parentPin").value===localStorage.getItem("ss_parent_pin"))showParentSettings();
+ else alert("PIN সঠিক নয়।");
+}
+function showParentSettings(){
+ parentAuthenticated=true;
+ document.getElementById("pinSetup").classList.add("hidden");
+ document.getElementById("pinLogin").classList.add("hidden");
+ document.getElementById("parentSettings").classList.remove("hidden");
+ document.getElementById("timeLimit").value=localStorage.getItem("ss_time_limit")||"10";
+}
+function saveTimeLimit(){
+ const mins=Number(document.getElementById("timeLimit").value);
+ localStorage.setItem("ss_time_limit",String(mins));
+ localStorage.removeItem("ss_deadline");
+ if(mins>0)localStorage.setItem("ss_deadline",String(Date.now()+mins*60000));
+ else localStorage.removeItem("ss_deadline");
+ alert("সময় সীমা সংরক্ষণ হয়েছে।");
+ closeParent();
+}
+function changeParentPin(){
+ const old=document.getElementById("oldPin").value;
+ const next=document.getElementById("changePin").value;
+ if(old!==localStorage.getItem("ss_parent_pin")){alert("বর্তমান PIN সঠিক নয়।");return;}
+ if(!/^\d{4}$/.test(next)){alert("নতুন PIN ৪ সংখ্যার হতে হবে।");return;}
+ localStorage.setItem("ss_parent_pin",next);
+ alert("PIN পরিবর্তন হয়েছে।");
+ document.getElementById("oldPin").value="";
+ document.getElementById("changePin").value="";
+}
+function checkLock(){
+ const pin=localStorage.getItem("ss_parent_pin");
+ const limit=Number(localStorage.getItem("ss_time_limit")||"10");
+ if(!pin||limit===0)return;
+ let deadline=Number(localStorage.getItem("ss_deadline")||"0");
+ if(!deadline){deadline=Date.now()+limit*60000;localStorage.setItem("ss_deadline",String(deadline));}
+ if(Date.now()>=deadline){
+  if(player)player.pauseVideo();
+  document.getElementById("lockScreen").classList.remove("hidden");
+ }
+}
+function unlockApp(){
+ if(document.getElementById("unlockPin").value!==localStorage.getItem("ss_parent_pin")){
+  alert("PIN সঠিক নয়।");return;
+ }
+ const mins=Number(localStorage.getItem("ss_time_limit")||"10");
+ if(mins>0)localStorage.setItem("ss_deadline",String(Date.now()+mins*60000));
+ document.getElementById("unlockPin").value="";
+ document.getElementById("lockScreen").classList.add("hidden");
+}
+function handleAndroidBack(){
+ if(!document.getElementById("parentPanel").classList.contains("hidden")){closeParent();return true;}
+ if(!document.getElementById("lockScreen").classList.contains("hidden"))return true;
+ if(!document.getElementById("watch").classList.contains("hidden")){backToVideos();return true;}
+ return false;
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 
 loadVideos("kids");
+checkLock();
+timerInterval=setInterval(checkLock,1000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkLock();});
 </script>
-
 </body>
-</html>
+   </html>
