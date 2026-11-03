@@ -2,302 +2,125 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sabbir Safe</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f8f9fa;color:#202124;
+ font-family:Arial,"Noto Sans Bengali",sans-serif;
 }
-
-body {
-  margin: 0;
-  background: #f1f3f4;
-  color: #0f0f0f;
-  font-family: Arial, "Noto Sans Bengali", sans-serif;
+header{
+ height:62px;background:white;display:flex;align-items:center;
+ justify-content:space-between;padding:0 14px;
+ position:sticky;top:0;z-index:20;
+ box-shadow:0 1px 5px #ddd;
 }
-
-header {
-  height: 58px;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 13px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid #ddd;
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:bold}
+.logo{
+ width:38px;height:27px;background:#e62117;border-radius:8px;
+ display:grid;place-items:center;color:white;font-size:17px;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 20px;
-  font-weight: bold;
+#settingsBtn{
+ border:0;background:#f1f3f4;border-radius:50%;
+ width:42px;height:42px;font-size:22px;
 }
-
-.play-logo {
-  background: #f00;
-  color: white;
-  border-radius: 9px;
-  padding: 5px 9px;
-  font-size: 17px;
+.category-bar{
+ display:flex;gap:8px;padding:12px;overflow-x:auto;
+ background:white;position:sticky;top:62px;z-index:15;
 }
-
-.header-buttons {
-  display: flex;
-  gap: 15px;
-  align-items: center;
+.category-bar button{
+ border:0;border-radius:20px;padding:10px 15px;
+ background:#eee;white-space:nowrap;font-size:14px;
 }
-
-.header-buttons button {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  cursor: pointer;
+.category-bar button.active{background:#202124;color:white}
+#playerArea{
+ display:none;background:#111;padding:8px;
+ position:relative;z-index:10;
 }
-
-.category-bar {
-  display: flex;
-  gap: 9px;
-  padding: 11px;
-  background: white;
-  overflow-x: auto;
-  position: sticky;
-  top: 58px;
-  z-index: 15;
+#playerBox{
+ width:100%;aspect-ratio:16/9;max-width:850px;
+ margin:auto;background:black;overflow:hidden;
 }
-
-.category {
-  border: none;
-  background: #eee;
-  padding: 8px 17px;
-  border-radius: 8px;
-  font-size: 14px;
-  white-space: nowrap;
-  cursor: pointer;
+#player{width:100%;height:100%}
+#player iframe{width:100%;height:100%}
+.player-controls{
+ display:flex;justify-content:center;align-items:center;
+ gap:9px;flex-wrap:wrap;padding:10px 0;
 }
-
-.category.active {
-  background: #0f0f0f;
-  color: white;
+.player-controls button{
+ border:0;border-radius:8px;padding:9px 12px;
+ background:#333;color:white;font-size:14px;
 }
-
-#playerArea {
-  background: #000;
-  width: 100%;
-  position: relative;
-  z-index: 30;
+#miniButton{background:#e62117}
+#playerTitle{color:white;font-size:14px;padding:5px}
+#videoList{
+ display:grid;grid-template-columns:1fr;gap:16px;
+ padding:12px;max-width:1000px;margin:auto;
 }
-
-#player {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
+.video-card{background:white;border-radius:12px;overflow:hidden}
+.thumbnail{
+ width:100%;aspect-ratio:16/9;object-fit:cover;
+ background:#ddd;display:block;
 }
-
-#player iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+.video-info{display:flex;gap:10px;padding:10px}
+.channel-icon{
+ width:36px;height:36px;border-radius:50%;
+ background:#e62117;color:white;display:grid;
+ place-items:center;flex-shrink:0;font-weight:bold;
 }
-
-#voiceStatus {
-  display: none;
-  background: #e8f0fe;
-  color: #174ea6;
-  padding: 8px;
-  text-align: center;
-  font-size: 13px;
+.video-text{flex:1;min-width:0}
+.video-title{font-size:15px;font-weight:bold;line-height:1.5}
+.video-date{font-size:12px;color:#777;margin-top:6px}
+.card-actions{display:flex;gap:8px;padding:0 10px 12px}
+.card-actions button{
+ border:0;border-radius:8px;padding:8px 12px;
+ background:#eee;font-size:13px;
 }
-
-.video-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background: #111;
-  padding: 9px 4px;
-  gap: 3px;
+.card-actions .watch{background:#e62117;color:white}
+#message{text-align:center;padding:20px;color:#666}
+#settingsPanel{
+ display:none;position:fixed;inset:0;background:#0008;
+ z-index:50;align-items:center;justify-content:center;padding:18px;
 }
-
-.video-controls button {
-  border: none;
-  color: white;
-  background: #303030;
-  border-radius: 50%;
-  width: 39px;
-  height: 39px;
-  font-size: 17px;
-  cursor: pointer;
+.settings-box{
+ width:100%;max-width:380px;background:white;
+ border-radius:15px;padding:20px;
 }
-
-.video-controls button:active {
-  background: #555;
+.settings-box h3{margin-top:0}
+.setting-row{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:14px 0;border-bottom:1px solid #eee;
 }
-
-#playerTitle {
-  background: #fff;
-  padding: 10px 12px;
-  font-weight: bold;
-  font-size: 15px;
+#closeSettings{
+ width:100%;padding:12px;border:0;border-radius:8px;
+ background:#e62117;color:white;margin-top:15px;
 }
-
-#videoList {
-  padding: 10px;
+#voiceStatus{
+ font-size:12px;color:#777;text-align:center;padding:6px;
 }
-
-.video-card {
-  margin-bottom: 17px;
-  cursor: pointer;
-  background: white;
+.mini-mode{
+ position:fixed!important;right:10px;bottom:12px;
+ width:190px!important;max-width:190px!important;
+ padding:5px!important;border-radius:10px;
+ box-shadow:0 2px 15px #0008;
 }
-
-.video-thumb {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-  background: #ddd;
+.mini-mode #playerBox{
+ width:100%!important;height:107px!important;
+ aspect-ratio:auto!important;
 }
-
-.video-info {
-  display: flex;
-  gap: 10px;
-  padding: 10px 4px;
+.mini-mode .player-controls{display:none}
+.mini-mode #playerTitle{font-size:11px}
+#expandMini{
+ display:none;position:fixed;right:12px;bottom:130px;
+ z-index:30;background:#e62117;color:white;
+ border:0;border-radius:20px;padding:9px 12px;
 }
-
-.channel-icon {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.video-text {
-  min-width: 0;
-}
-
-.video-title {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.video-meta {
-  color: #606060;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-#miniPlayer {
-  display: none;
-  position: fixed;
-  bottom: 12px;
-  right: 10px;
-  width: 190px;
-  background: #111;
-  z-index: 100;
-  box-shadow: 0 2px 12px #0005;
-  border-radius: 9px;
-  overflow: hidden;
-}
-
-#miniPlayer iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
-
-#miniPlayer button {
-  background: #222;
-  color: white;
-  border: none;
-  padding: 8px;
-}
-
-#settingsPanel {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: #0007;
-}
-
-.settings-box {
-  background: white;
-  width: 90%;
-  max-width: 400px;
-  margin: 70px auto;
-  padding: 18px;
-  border-radius: 13px;
-}
-
-.settings-box h3 {
-  margin-top: 0;
-}
-
-.setting-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 13px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.setting-row input {
-  width: 21px;
-  height: 21px;
-}
-
-.settings-box button {
-  border: none;
-  background: #eee;
-  padding: 10px 16px;
-  border-radius: 7px;
-  font-size: 14px;
-}
-
-#voiceMessage {
-  color: #555;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-#loadMore {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 25px;
-  border: none;
-  background: #ddd;
-  border-radius: 20px;
-  font-size: 14px;
-}
-
-#shortsScreen {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 150;
-}
-
-#shortsVideo {
-  width: 100%;
-  height: 100%;
-  background: #000;
-}
-
-@media (min-width: 700px) {
-  #videoList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-  }
+.mini-mode #expandMini{display:block}
+.empty{text-align:center;color:#777;padding:30px}
+@media(min-width:650px){
+ #videoList{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -305,295 +128,389 @@ header {
 <body>
 
 <header>
-  <div class="logo">
-    <span class="play-logo">▶</span>
-    <span>Sabbir Safe</span>
-  </div>
-
-  <div class="header-buttons">
-    <button onclick="openSettings()" title="সেটিংস">⚙️</button>
-  </div>
+ <div class="brand">
+  <div class="logo">▶</div>
+  <span>Sabbir Safe</span>
+ </div>
+ <button id="settingsBtn" aria-label="সেটিংস">⚙</button>
 </header>
 
-<div class="category-bar">
-  <button class="category active" onclick="changeCategory('kids',this)">শিশু</button>
-  <button class="category" onclick="changeCategory('islamic',this)">ইসলামিক</button>
-  <button class="category" onclick="changeCategory('madrasa',this)">মাদরাসা</button>
-</div>
+<nav class="category-bar">
+ <button class="active" data-category="all">সব ভিডিও</button>
+ <button data-category="kids">বাচ্চাদের ভিডিও</button>
+ <button data-category="islamic">বয়স্কদের ভিডিও</button>
+ <button data-category="madrasa">ছাত্রদের ভিডিও</button>
+ <button data-category="saved">সেভ করা</button>
+</nav>
 
-<div id="voiceStatus">
-  🎙️ ভয়েস কন্ট্রোল চালু — কথা বলুন
-</div>
-
-<div id="playerArea">
-
+<section id="playerArea">
+ <div id="playerTitle">ভিডিও নির্বাচন করুন</div>
+ <div id="playerBox">
   <div id="player"></div>
+ </div>
+ <button id="expandMini">ভিডিও বড় করুন</button>
+ <div class="player-controls">
+  <button id="previousBtn">⏮ আগের</button>
+  <button id="back10Btn">↶ ১০ সেকেন্ড</button>
+  <button id="playPauseBtn">▶ / ⏸</button>
+  <button id="forward10Btn">১০ সেকেন্ড ↷</button>
+  <button id="nextBtn">পরের ⏭</button>
+  <button id="muteBtn">🔊 শব্দ</button>
+  <button id="fullBtn">⛶ বড়</button>
+  <button id="miniButton">ছোট করুন</button>
+ </div>
+</section>
 
-  <div class="video-controls">
-    <button onclick="previousVideo()" title="আগের ভিডিও">⏮</button>
-    <button onclick="seekVideo(-10)" title="১০ সেকেন্ড পিছনে">↶</button>
-    <button onclick="togglePlay()" id="playButton" title="চালু/বন্ধ">⏯</button>
-    <button onclick="seekVideo(10)" title="১০ সেকেন্ড সামনে">↷</button>
-    <button onclick="nextVideo()" title="পরের ভিডিও">⏭</button>
-    <button onclick="toggleMute()" title="সাউন্ড">🔊</button>
-    <button onclick="fullScreenVideo()" title="ফুলস্ক্রিন">⛶</button>
-  </div>
+<div id="voiceStatus">ভয়েস কন্ট্রোল বন্ধ</div>
 
-</div>
-
-<div id="playerTitle">
-  Sabbir Safe — একটি ভিডিও নির্বাচন করুন
-</div>
-
-<div id="videoList"></div>
-
-<button id="loadMore" onclick="loadMoreVideos()">
-  আরও ভিডিও দেখুন
-</button>
-
-<div id="miniPlayer">
-  <div id="miniPlayerInfo" style="color:white;padding:7px;font-size:12px">
-    ভিডিও চলছে
-  </div>
-  <button onclick="expandPlayer()">ভিডিও বড় করুন</button>
-</div>
+<main id="videoList">
+ <div id="message">ভিডিও লোড হচ্ছে...</div>
+</main>
 
 <div id="settingsPanel">
-  <div class="settings-box">
-    <h3>⚙️ Sabbir Safe সেটিংস</h3>
-
-    <div class="setting-row">
-      <span>🎙️ ভয়েস কন্ট্রোল</span>
-      <input type="checkbox" id="voiceToggle"
-        onchange="toggleVoice(this.checked)">
-    </div>
-
-    <p id="voiceMessage">
-      চালু করলে কথা বলে ভিডিও নিয়ন্ত্রণ করতে পারবেন।
-    </p>
-
-    <button onclick="closeSettings()">বন্ধ করুন</button>
+ <div class="settings-box">
+  <h3>⚙ সেটিংস</h3>
+  <div class="setting-row">
+   <span>ভয়েস কন্ট্রোল</span>
+   <input type="checkbox" id="voiceToggle">
   </div>
+  <p style="font-size:13px;color:#666">
+   চালু করলে অ্যাপ খোলা থাকা অবস্থায় ভয়েস কমান্ড কাজ করার চেষ্টা করবে।
+   মাইক্রোফোন অনুমতি লাগতে পারে।
+  </p>
+  <button id="closeSettings">বন্ধ করুন</button>
+ </div>
 </div>
 
-<div id="shortsScreen">
-  <div id="shortsVideo"></div>
-  <button onclick="closeShorts()"
-    style="position:absolute;top:15px;right:15px">
-    বন্ধ
-  </button>
-</div>
-  
 <script>
-/* YouTube API */
+  /* =====================================
+   SABBIR SAFE - JAVASCRIPT
+===================================== */
+
 const API_KEY = "AIzaSyDlQZhB4b0r2D9KxnC7dmFNJdKjFO-T1hs";
+
 const PLAYLISTS = {
   kids: "PLPr2-LmXD6s4",
   islamic: "PLVn2mfMGbX9o",
   madrasa: "PLa1OIi8h8b48"
 };
 
-let currentCategory = "kids";
+const CATEGORY_NAMES = {
+  all: "সব ভিডিও",
+  kids: "বাচ্চাদের ভিডিও",
+  islamic: "বয়স্কদের ভিডিও",
+  madrasa: "ছাত্রদের ভিডিও"
+};
+
+let currentCategory = "all";
 let videos = [];
-let currentIndex = -1;
-let nextPageToken = "";
+let nextPageTokens = {};
 let loading = false;
+let savedVideos = JSON.parse(localStorage.getItem("sabbirSavedVideos") || "[]");
+let savedMode = false;
+let currentVideoIndex = -1;
 let player = null;
 let playerReady = false;
-let voiceRecognition = null;
 let voiceEnabled = false;
+let recognition = null;
 let miniMode = false;
 
 const videoList = document.getElementById("videoList");
+const playerArea = document.getElementById("playerArea");
+const playerBox = document.getElementById("player");
+const settingsPanel = document.getElementById("settingsPanel");
 
-/* YouTube Player API */
-function loadYouTubePlayerAPI() {
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
+function getVideoId(item) {
+  return item.snippet?.resourceId?.videoId || "";
 }
 
-function onYouTubeIframeAPIReady() {
+function getVideoInfo(item) {
+  const snippet = item.snippet || {};
+  return {
+    id: getVideoId(item),
+    title: snippet.title || "ভিডিও",
+    thumbnail:
+      snippet.thumbnails?.medium?.url ||
+      snippet.thumbnails?.default?.url ||
+      "",
+    channel: snippet.videoOwnerChannelTitle || "",
+    playlist: item.playlist || ""
+  };
+}
+
+async function fetchPlaylist(playlistId, pageToken = "") {
+  let url =
+    "https://www.googleapis.com/youtube/v3/playlistItems" +
+    "?part=snippet&maxResults=50" +
+    "&playlistId=" + encodeURIComponent(playlistId) +
+    "&key=" + encodeURIComponent(API_KEY);
+
+  if (pageToken) {
+    url += "&pageToken=" + encodeURIComponent(pageToken);
+  }
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error?.message || "ভিডিও লোড করা যায়নি");
+  }
+
+  return data;
+}
+
+async function loadMoreVideos() {
+  if (loading || savedMode) return;
+
+  loading = true;
+
+  try {
+    let playlists = [];
+
+    if (currentCategory === "all") {
+      playlists = Object.entries(PLAYLISTS);
+    } else {
+      playlists = [[currentCategory, PLAYLISTS[currentCategory]]];
+    }
+
+    let newVideos = [];
+
+    for (const [category, playlistId] of playlists) {
+      const token = nextPageTokens[category] || "";
+
+      if (nextPageTokens[category] === null) continue;
+
+      const data = await fetchPlaylist(playlistId, token);
+
+      const items = (data.items || []).map(item => ({
+        ...getVideoInfo(item),
+        category
+      }));
+
+      newVideos.push(...items);
+
+      nextPageTokens[category] = data.nextPageToken || null;
+    }
+
+    newVideos = newVideos.filter(video =>
+      video.id && !videos.some(old => old.id === video.id)
+    );
+
+    videos.push(...newVideos);
+    renderVideos();
+
+  } catch (error) {
+    console.error(error);
+    showMessage("ভিডিও লোড হয়নি। API Key ও ইন্টারনেট পরীক্ষা করুন।");
+  }
+
+  loading = false;
+}
+
+function renderVideos() {
+  if (!videoList) return;
+
+  if (videos.length === 0) {
+    videoList.innerHTML = "<p>কোনো ভিডিও পাওয়া যায়নি।</p>";
+    return;
+  }
+
+  videoList.innerHTML = videos.map((video, index) => `
+    <div class="video-card">
+      <div class="thumbnail" onclick="playVideo('${video.id}', ${index})">
+        <img src="${video.thumbnail}" alt="ভিডিও থাম্বনেইল">
+        <span class="play-icon">▶</span>
+      </div>
+
+      <div class="video-info">
+        <div class="video-title"
+             onclick="playVideo('${video.id}', ${index})">
+          ${escapeHTML(video.title)}
+        </div>
+
+        <button onclick="toggleSave('${video.id}')">
+          ${savedVideos.some(v => v.id === video.id) ? "★ সেভ করা" : "☆ সেভ"}
+        </button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function changeCategory(category) {
+  if (!PLAYLISTS[category] && category !== "all") return;
+
+  currentCategory = category;
+  savedMode = false;
+  videos = [];
+  nextPageTokens = {};
+
+  document.querySelectorAll(".category-bar button").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.category === category
+    );
+  });
+
+  loadMoreVideos();
+  window.scrollTo(0, 0);
+}
+
+function toggleSave(videoId) {
+  const video = videos.find(v => v.id === videoId);
+  if (!video) return;
+
+  const exists = savedVideos.some(v => v.id === videoId);
+
+  if (exists) {
+    savedVideos = savedVideos.filter(v => v.id !== videoId);
+  } else {
+    savedVideos.unshift(video);
+  }
+
+  localStorage.setItem(
+    "sabbirSavedVideos",
+    JSON.stringify(savedVideos)
+  );
+
+  if (savedMode) {
+    showSavedVideos();
+  } else {
+    renderVideos();
+  }
+}
+
+function showSavedVideos() {
+  savedMode = true;
+  videoList.innerHTML = "";
+
+  if (!savedVideos.length) {
+    videoList.innerHTML = "<p>এখনো কোনো ভিডিও সেভ করা হয়নি।</p>";
+    return;
+  }
+
+  videoList.innerHTML = savedVideos.map((video, index) => `
+    <div class="video-card">
+      <div class="thumbnail" onclick="playVideo('${video.id}', ${index}, true)">
+        <img src="${video.thumbnail}" alt="ভিডিও থাম্বনেইল">
+        <span class="play-icon">▶</span>
+      </div>
+
+      <div class="video-info">
+        <div class="video-title"
+             onclick="playVideo('${video.id}', ${index}, true)">
+          ${escapeHTML(video.title)}
+        </div>
+
+        <button onclick="toggleSave('${video.id}')">★ সেভ করা</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function showMessage(message) {
+  const messageBox = document.getElementById("message");
+  if (messageBox) {
+    messageBox.textContent = message;
+  }
+}
+
+function loadYouTubePlayerAPI() {
+  if (window.YT && window.YT.Player) {
+    createPlayer();
+    return;
+  }
+
+  window.onYouTubeIframeAPIReady = createPlayer;
+
+  const script = document.createElement("script");
+  script.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(script);
+}
+
+function createPlayer() {
+  if (player) return;
+
   player = new YT.Player("player", {
     width: "100%",
     height: "100%",
+    videoId: "",
     playerVars: {
-      autoplay: 0,
-      controls: 1,
       playsinline: 1,
-      rel: 0,
-      enablejsapi: 1
+      rel: 0
     },
     events: {
-      onReady: function() {
+      onReady: () => {
         playerReady = true;
       }
     }
   });
 }
 
-loadYouTubePlayerAPI();
-
-/* Category */
-async function changeCategory(category, button) {
-  currentCategory = category;
-
-  document.querySelectorAll(".category").forEach(b => {
-    b.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  videos = [];
-  currentIndex = -1;
-  nextPageToken = "";
-  videoList.innerHTML = "";
-
-  if (playerReady) {
-    player.stopVideo();
-  }
-
-  document.getElementById("playerTitle").textContent =
-    "ভিডিও নির্বাচন করুন";
-
-  await loadMoreVideos();
-}
-
-/* Load videos from playlist */
-async function loadMoreVideos() {
-  if (loading || !API_KEY || API_KEY === "YOUR_API_KEY") {
-    if (API_KEY === "YOUR_API_KEY") {
-      alert("প্রথমে আপনার YouTube API Key বসান।");
-    }
+function playVideo(videoId, index, fromSaved = false) {
+  if (!playerReady || !player) {
+    showMessage("ভিডিও প্লেয়ার প্রস্তুত হচ্ছে। একটু অপেক্ষা করুন।");
     return;
   }
 
-  if (!PLAYLISTS[currentCategory]) return;
+  const list = fromSaved ? savedVideos : videos;
+  currentVideoIndex = index;
 
-  loading = true;
+  player.loadVideoById(videoId);
 
-  const playlist = PLAYLISTS[currentCategory];
-
-  let url =
-    "https://www.googleapis.com/youtube/v3/playlistItems" +
-    "?part=snippet&maxResults=50" +
-    "&playlistId=" + playlist +
-    "&key=" + encodeURIComponent(API_KEY);
-
-  if (nextPageToken) {
-    url += "&pageToken=" + encodeURIComponent(nextPageToken);
+  if (playerArea) {
+    playerArea.style.display = "block";
   }
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error?.message || "ভিডিও লোড হয়নি");
-    }
-
-    nextPageToken = data.nextPageToken || "";
-
-    const newVideos = (data.items || [])
-      .filter(item =>
-        item.snippet?.resourceId?.videoId
-      )
-      .map(item => ({
-        id: item.snippet.resourceId.videoId,
-        title: item.snippet.title,
-        channel: item.snippet.videoOwnerChannelTitle || "Sabbir Safe",
-        image: item.snippet.thumbnails?.medium?.url ||
-               item.snippet.thumbnails?.default?.url
-      }));
-
-    videos.push(...newVideos);
-
-    renderVideos(newVideos);
-
-    document.getElementById("loadMore").style.display =
-      nextPageToken ? "block" : "none";
-
-  } catch (error) {
-    alert("ভিডিও লোড করতে সমস্যা হয়েছে: " + error.message);
-  }
-
-  loading = false;
-}
-
-/* Video cards */
-function renderVideos(list) {
-  list.forEach(video => {
-    const card = document.createElement("div");
-    card.className = "video-card";
-
-    const img = document.createElement("img");
-    img.className = "video-thumb";
-    img.src = video.image || "";
-    img.alt = video.title;
-    img.loading = "lazy";
-
-    const info = document.createElement("div");
-    info.className = "video-info";
-
-    const icon = document.createElement("div");
-    icon.className = "channel-icon";
-    icon.textContent = "▶";
-
-    const text = document.createElement("div");
-    text.className = "video-text";
-
-    const title = document.createElement("div");
-    title.className = "video-title";
-    title.textContent = video.title;
-
-    const meta = document.createElement("div");
-    meta.className = "video-meta";
-    meta.textContent = video.channel;
-
-    text.appendChild(title);
-    text.appendChild(meta);
-
-    info.appendChild(icon);
-    info.appendChild(text);
-
-    card.appendChild(img);
-    card.appendChild(info);
-
-    card.onclick = () => playVideo(video.id);
-
-    videoList.appendChild(card);
-  });
-}
-
-/* Play selected video */
-function playVideo(id) {
-  const index = videos.findIndex(v => v.id === id);
-
-  if (index < 0 || !playerReady) return;
-
-  currentIndex = index;
-
-  player.loadVideoById(id);
-
-  document.getElementById("playerTitle").textContent =
-    videos[index].title;
-
-  document.getElementById("miniPlayerInfo").textContent =
-    videos[index].title;
 
   miniMode = false;
-  document.getElementById("miniPlayer").style.display = "none";
+  playerArea?.classList.remove("mini-mode");
+
+  if (fromSaved) {
+    window.currentPlayList = "saved";
+  } else {
+    window.currentPlayList = "normal";
+  }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* Player controls */
+function getCurrentList() {
+  return window.currentPlayList === "saved" ? savedVideos : videos;
+}
+
+function nextVideo() {
+  const list = getCurrentList();
+  if (!list.length) return;
+
+  currentVideoIndex = (currentVideoIndex + 1) % list.length;
+  playVideo(list[currentVideoIndex].id, currentVideoIndex,
+    window.currentPlayList === "saved");
+}
+
+function previousVideo() {
+  const list = getCurrentList();
+  if (!list.length) return;
+
+  currentVideoIndex =
+    (currentVideoIndex - 1 + list.length) % list.length;
+
+  playVideo(list[currentVideoIndex].id, currentVideoIndex,
+    window.currentPlayList === "saved");
+}
+
 function togglePlay() {
-  if (!playerReady) return;
+  if (!playerReady || !player) return;
 
-  const state = player.getPlayerState();
-
-  if (state === YT.PlayerState.PLAYING) {
+  if (player.getPlayerState() === YT.PlayerState.PLAYING) {
     player.pauseVideo();
   } else {
     player.playVideo();
@@ -601,32 +518,14 @@ function togglePlay() {
 }
 
 function seekVideo(seconds) {
-  if (!playerReady) return;
+  if (!playerReady || !player) return;
 
   const current = player.getCurrentTime();
   player.seekTo(Math.max(0, current + seconds), true);
 }
 
-function nextVideo() {
-  if (currentIndex < videos.length - 1) {
-    playVideo(videos[currentIndex + 1].id);
-  } else {
-    loadMoreVideos().then(() => {
-      if (currentIndex < videos.length - 1) {
-        playVideo(videos[currentIndex + 1].id);
-      }
-    });
-  }
-}
-
-function previousVideo() {
-  if (currentIndex > 0) {
-    playVideo(videos[currentIndex - 1].id);
-  }
-}
-
 function toggleMute() {
-  if (!playerReady) return;
+  if (!playerReady || !player) return;
 
   if (player.isMuted()) {
     player.unMute();
@@ -635,54 +534,44 @@ function toggleMute() {
   }
 }
 
-function fullScreenVideo() {
-  const iframe = document.querySelector("#player iframe");
+function toggleFullscreen() {
+  const iframe = playerArea?.querySelector("iframe");
 
   if (iframe?.requestFullscreen) {
     iframe.requestFullscreen();
-  } else if (iframe?.webkitRequestFullscreen) {
-    iframe.webkitRequestFullscreen();
   }
 }
 
-/* Mini player while scrolling */
-window.addEventListener("scroll", () => {
-  const area = document.getElementById("playerArea");
+function toggleMiniPlayer() {
+  if (!playerArea) return;
 
-  if (!playerReady || currentIndex < 0) return;
-
-  const rect = area.getBoundingClientRect();
-
-  if (rect.bottom < 0) {
-    miniMode = true;
-    document.getElementById("miniPlayer").style.display = "block";
-  } else {
-    miniMode = false;
-    document.getElementById("miniPlayer").style.display = "none";
-  }
-});
+  miniMode = !miniMode;
+  playerArea.classList.toggle("mini-mode", miniMode);
+}
 
 function expandPlayer() {
-  document.getElementById("playerArea").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-
-  document.getElementById("miniPlayer").style.display = "none";
+  miniMode = false;
+  playerArea?.classList.remove("mini-mode");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* Settings */
-function openSettings() {
-  document.getElementById("settingsPanel").style.display = "block";
+function toggleSettings() {
+  if (!settingsPanel) return;
+
+  settingsPanel.style.display =
+    settingsPanel.style.display === "block" ? "none" : "block";
 }
 
-function closeSettings() {
-  document.getElementById("settingsPanel").style.display = "none";
-}
+/* ভয়েস কন্ট্রোল */
 
-/* Voice control */
-function toggleVoice(enabled) {
+function toggleVoiceControl(enabled) {
   voiceEnabled = enabled;
+
+  if (!("webkitSpeechRecognition" in window)) {
+    showMessage("এই WebView-তে ভয়েস কন্ট্রোল সমর্থিত নয়।");
+    voiceEnabled = false;
+    return;
+  }
 
   if (enabled) {
     startVoiceControl();
@@ -692,161 +581,121 @@ function toggleVoice(enabled) {
 }
 
 function startVoiceControl() {
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+  if (!voiceEnabled) return;
 
-  if (!SpeechRecognition) {
-    alert("এই ফোনের ব্রাউজারে বাংলা ভয়েস কন্ট্রোল সমর্থিত নয়।");
-    document.getElementById("voiceToggle").checked = false;
-    voiceEnabled = false;
-    return;
-  }
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = "bn-BD";
+  recognition.continuous = true;
+  recognition.interimResults = false;
 
-  if (voiceRecognition) {
-    voiceRecognition.stop();
-  }
-
-  voiceRecognition = new SpeechRecognition();
-  voiceRecognition.lang = "bn-BD";
-  voiceRecognition.continuous = true;
-  voiceRecognition.interimResults = false;
-
-  voiceRecognition.onresult = function(event) {
-    const result =
-      event.results[event.results.length - 1][0].transcript;
+  recognition.onresult = event => {
+    const result = event.results[event.results.length - 1][0]
+      .transcript.toLowerCase();
 
     handleVoiceCommand(result);
   };
 
-  voiceRecognition.onerror = function(event) {
-    document.getElementById("voiceMessage").textContent =
-      "ভয়েস সমস্যা: " + event.error;
+  recognition.onerror = () => {
+    showMessage("ভয়েস কন্ট্রোলে সমস্যা হয়েছে।");
   };
 
-  voiceRecognition.onend = function() {
+  recognition.onend = () => {
     if (voiceEnabled) {
-      setTimeout(() => {
-        if (voiceEnabled && voiceRecognition) {
-          try {
-            voiceRecognition.start();
-          } catch(e) {}
-        }
-      }, 700);
+      try {
+        recognition.start();
+      } catch (error) {}
     }
   };
 
   try {
-    voiceRecognition.start();
-    document.getElementById("voiceStatus").style.display = "block";
-    document.getElementById("voiceMessage").textContent =
-      "ভয়েস কন্ট্রোল চালু আছে। বন্ধ না করা পর্যন্ত নির্দেশ শুনবে।";
-  } catch(error) {
-    document.getElementById("voiceMessage").textContent =
-      "মাইক্রোফোন চালু করা যায়নি। অনুমতি পরীক্ষা করুন।";
+    recognition.start();
+    showMessage("ভয়েস কন্ট্রোল চালু আছে।");
+  } catch (error) {
+    showMessage("মাইক্রোফোন অনুমতি পরীক্ষা করুন।");
   }
 }
 
 function stopVoiceControl() {
   voiceEnabled = false;
 
-  if (voiceRecognition) {
-    voiceRecognition.onend = null;
-    voiceRecognition.stop();
-    voiceRecognition = null;
+  if (recognition) {
+    recognition.onend = null;
+    recognition.stop();
+    recognition = null;
   }
 
-  document.getElementById("voiceStatus").style.display = "none";
-  document.getElementById("voiceMessage").textContent =
-    "ভয়েস কন্ট্রোল বন্ধ আছে।";
+  showMessage("ভয়েস কন্ট্রোল বন্ধ আছে।");
 }
 
 function handleVoiceCommand(command) {
-  const text = command.toLowerCase();
-
   if (
-    text.includes("থামো") ||
-    text.includes("স্টপ") ||
-    text.includes("বন্ধ করো")
+    command.includes("বন্ধ") ||
+    command.includes("থাম")
   ) {
-    if (playerReady) player.pauseVideo();
-    return;
-  }
-
-  if (
-    text.includes("চালু করো") ||
-    text.includes("চালাও") ||
-    text.includes("প্লে")
+    player?.pauseVideo();
+  } else if (
+    command.includes("চালু") ||
+    command.includes("প্লে")
   ) {
-    if (playerReady) player.playVideo();
-    return;
-  }
-
-  if (
-    text.includes("আরেকটা") ||
-    text.includes("পরের ভিডিও") ||
-    text.includes("ভিডিও বদল") ||
-    text.includes("ওয়াজ বদল") ||
-    text.includes("আরেকটা ওয়াজ")
+    player?.playVideo();
+  } else if (
+    command.includes("পরের") ||
+    command.includes("নেক্সট")
   ) {
     nextVideo();
-    return;
-  }
-
-  if (
-    text.includes("আগের ভিডিও") ||
-    text.includes("আগের ওয়াজ")
+  } else if (
+    command.includes("আগের")
   ) {
     previousVideo();
-    return;
-  }
-
-  if (
-    text.includes("দশ সেকেন্ড পিছনে") ||
-    text.includes("পিছনে যাও")
-  ) {
-    seekVideo(-10);
-    return;
-  }
-
-  if (
-    text.includes("দশ সেকেন্ড সামনে") ||
-    text.includes("সামনে যাও")
+  } else if (
+    command.includes("দশ সেকেন্ড সামনে")
   ) {
     seekVideo(10);
-    return;
-  }
-
-  if (
-    text.includes("শব্দ বন্ধ") ||
-    text.includes("মিউট")
+  } else if (
+    command.includes("দশ সেকেন্ড পিছনে")
   ) {
-    if (playerReady) player.mute();
-    return;
-  }
-
-  if (text.includes("শব্দ চালু")) {
-    if (playerReady) player.unMute();
-    return;
+    seekVideo(-10);
+  } else if (
+    command.includes("মিউট")
+  ) {
+    player?.mute();
+  } else if (
+    command.includes("আনমিউট")
+  ) {
+    player?.unMute();
   }
 }
 
-/* Shorts placeholder */
-function closeShorts() {
-  document.getElementById("shortsScreen").style.display = "none";
-}
+/* নিচে স্ক্রল করলে ছোট প্লেয়ার */
 
-/* Android back */
+window.addEventListener("scroll", () => {
+  if (!playerArea || !playerReady) return;
+
+  const rect = playerArea.getBoundingClientRect();
+
+  if (rect.bottom < 0 && !miniMode) {
+    toggleMiniPlayer();
+  } else if (rect.top > 100 && miniMode) {
+    expandPlayer();
+  }
+});
+
+/* নিচে গেলে নতুন ভিডিও লোড */
+
+window.addEventListener("scroll", () => {
+  if (
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - 500
+  ) {
+    loadMoreVideos();
+  }
+});
+
+/* Android Back Button */
+
 window.handleAndroidBack = function() {
-  const settings = document.getElementById("settingsPanel");
-
-  if (settings.style.display === "block") {
-    closeSettings();
-    return true;
-  }
-
-  if (document.getElementById("shortsScreen").style.display === "block") {
-    closeShorts();
+  if (settingsPanel && settingsPanel.style.display === "block") {
+    settingsPanel.style.display = "none";
     return true;
   }
 
@@ -858,12 +707,26 @@ window.handleAndroidBack = function() {
   return false;
 };
 
-/* First playlist */
+/* ক্যাটাগরি বাটন */
+
+document.querySelectorAll(".category-bar button").forEach(button => {
+  button.addEventListener("click", () => {
+    const category = button.dataset.category;
+
+    if (category === "saved") {
+      showSavedVideos();
+    } else if (category) {
+      changeCategory(category);
+    }
+  });
+});
+
+/* শুরু */
+
 window.addEventListener("load", () => {
-  loadMoreVideos();
+  loadYouTubePlayerAPI();
+  changeCategory("all");
 });
 </script>
-
 </body>
 </html>
-<!-- পর্ব ২ এখানে যুক্ত হবে -->
